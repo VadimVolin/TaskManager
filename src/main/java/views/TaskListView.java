@@ -4,6 +4,8 @@ import models.Task;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 
 public class TaskListView extends JFrame {
@@ -33,7 +35,6 @@ public class TaskListView extends JFrame {
         btnPanel.add(deleteBtn);
         btnPanel.add(updateBtn);
         btnPanel.setAlignmentX(Component.TOP_ALIGNMENT);
-
 
         listPanel = new JPanel();
         listPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -76,15 +77,33 @@ public class TaskListView extends JFrame {
         listPanel.add(listScroller);
         listPanel.setAlignmentX(Component.TOP_ALIGNMENT);
 
-
         Container mainContainer = getContentPane();
         mainContainer.setLayout(new FlowLayout(FlowLayout.CENTER));
         mainContainer.add(btnPanel);
         mainContainer.add(listPanel);
 
         setVisible(true);
+
+        addBtn.addActionListener(new AddBtnActionListener());
     }
 
+
+    class AddBtnActionListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            AddTaskView addTaskView = new AddTaskView();
+            addTaskView.setVisible(true);
+        }
+    }
+
+    class UpdateBtnActionListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+
+        }
+    }
     public static void main(String[] args) {
         TaskListView window = new TaskListView();
     }
