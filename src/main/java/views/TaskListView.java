@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDateTime;
 
-public class MainWindow extends JFrame {
+public class TaskListView extends JFrame {
 
     JPanel btnPanel;
     JButton addBtn;
@@ -16,7 +16,7 @@ public class MainWindow extends JFrame {
     JPanel listPanel;
     JList<Task> taskList;
 
-    public MainWindow() {
+    public TaskListView() {
         super("TaskManager");
         setLocation(200, 150);
         setSize(620, 500);
@@ -86,7 +86,7 @@ public class MainWindow extends JFrame {
     }
 
     public static void main(String[] args) {
-        MainWindow window = new MainWindow();
+        TaskListView window = new TaskListView();
     }
 
 }
