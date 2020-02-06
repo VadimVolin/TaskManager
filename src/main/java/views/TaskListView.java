@@ -93,7 +93,7 @@ public class TaskListView extends JFrame {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             AddTaskView addTaskView = new AddTaskView();
-            addTaskView.setVisible(true);
+//            addTaskView.setVisible(true);
         }
     }
 
