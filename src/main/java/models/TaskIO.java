@@ -128,7 +128,6 @@ public class TaskIO {
         Task[] arrTasks = new Task[tasks.size()];
         int i = 0;
         do {
-
             arrTasks[i++] = iterator.next();
         } while (iterator.hasNext());
         gson.toJson(arrTasks, out);
@@ -153,9 +152,9 @@ public class TaskIO {
     }
 
     public static void read(AbstractTaskList tasks, Reader in) throws IOException, ParseException {
-        Gson gson = new  GsonBuilder().setPrettyPrinting().create();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         Task[] arrayTasks = gson.fromJson(in, Task[].class);
-        for (Task task: arrayTasks) {
+        for (Task task : arrayTasks) {
             tasks.add(task);
         }
 //        JSONParser parser = new JSONParser();
