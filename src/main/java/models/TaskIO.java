@@ -122,7 +122,7 @@ public class TaskIO {
 
     public static void write(AbstractTaskList tasks, Writer out) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting()
-                .setDateFormat("yyyy-MM-dd hh:mm:ss.S")
+                .setDateFormat("yyyy-MM-dd hh:mm:ss")
                 .create();
         Iterator<Task> iterator = tasks.iterator();
         Task[] arrTasks = new Task[tasks.size()];
@@ -132,7 +132,11 @@ public class TaskIO {
         } while (iterator.hasNext());
         gson.toJson(arrTasks, out);
         out.close();
-//        JSONObject jsonObject = null;
+
+    }
+
+//    public static void writeJSON(AbstractTaskList tasks, Writer out) throws IOException {
+        //        JSONObject jsonObject = null;
 //        JSONArray jsonArray = new JSONArray();
 //        for (Task task : tasks) {
 //            jsonObject = new JSONObject();
@@ -149,7 +153,7 @@ public class TaskIO {
 //        jsonArray.add(tasks);
 //        }
 //        out.write(jsonArray.toJSONString());
-    }
+//    }
 
     public static void read(AbstractTaskList tasks, Reader in) throws IOException, ParseException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -157,8 +161,6 @@ public class TaskIO {
         for (Task task : arrayTasks) {
             tasks.add(task);
         }
-//        JSONParser parser = new JSONParser();
-//        JSONArray jsonArray = (JSONArray) parser.p;
     }
 
     public static void writeText(AbstractTaskList tasks, File file) throws IOException {

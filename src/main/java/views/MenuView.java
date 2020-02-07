@@ -2,8 +2,6 @@ package views;
 
 import org.apache.log4j.Logger;
 
-import java.util.Scanner;
-
 public class MenuView {
 
     final static Logger logger = Logger.getLogger(MenuView.class);
