@@ -10,6 +10,7 @@ import views.ShowListView;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class ShowListController {
 
@@ -22,6 +23,8 @@ public class ShowListController {
     public ShowListController() {
         showListView = new ShowListView();
         arrayTaskList = initListFromFile();
+        showListView.printTaskList(arrayTaskList);
+        MainController.finishAction();
     }
 
     private AbstractTaskList initListFromFile() {
