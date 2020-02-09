@@ -28,7 +28,8 @@ public class ShowListController {
     }
 
     private AbstractTaskList initListFromFile() {
-        File file = new File("tasks.txt");
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource("tasks.txt").getFile());
 
         AbstractTaskList taskList = new ArrayTaskList();
         if (!file.exists()) {

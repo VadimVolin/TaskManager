@@ -3,7 +3,6 @@ package contorllers;
 import org.apache.log4j.Logger;
 import views.MenuView;
 
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class MainController {
@@ -11,7 +10,7 @@ public class MainController {
     final static Logger logger = Logger.getLogger(MainController.class);
 
     private MenuView menuView;
-    private AddTaskController addTaskController;
+    private AddTaskTemplateController addTaskController;
     private UpdateTaskController updateTaskController;
     private DeleteTaskController deleteTaskController;
     private ShowListController showListController;
@@ -28,7 +27,7 @@ public class MainController {
             case 1:
                 logger.info("User choose add item view");
                 System.out.println("Load add item view");
-                addTaskController = new AddTaskController();
+                addTaskController = new AddTaskTemplateController();
             case 2:
                 logger.info("User choose update item");
                 System.out.println("Load update item view");
@@ -73,7 +72,6 @@ public class MainController {
     public static int readIntFromInput(int from, int to) {
         int chosenItem = 0;
         boolean inputFlag = true;
-        try {
             while (inputFlag) {
                 System.out.println("Choose item:");
                 if (!scanner.hasNextInt()) {
@@ -90,43 +88,7 @@ public class MainController {
                     }
                 }
             }
-        } catch (NoSuchElementException e) {
-            scanner = new Scanner(System.in);
-        }
-            finally
-         {
-            if (scanner != null) {
-//                scanner.close();
-            }
-        }
         return chosenItem;
 
     }
-
-    /*
-    *
-    *  while (true) {
-            System.out.println("Choose item:");
-            String input = "";
-            while (!scanner.hasNext()) {
-                scanner.next();
-            }
-            input = scanner.nextLine();
-            System.out.println("Read for chosing item");
-            if (!input.trim().isEmpty() && input.trim().length() == 1 && !input.equals("")) {
-                chosenItem = Character.getNumericValue(input.charAt(0));
-                if (chosenItem >= from && chosenItem <= to) {
-                    return chosenItem;
-                } else {
-                    System.out.println("Please, write " + from + "|" + to + " , only numbers.");
-                    logger.error("Wrong input: " + chosenItem);
-                }
-            } else {
-                System.out.println("Please, write from " + from + "|" + to + " , only numbers.");
-                logger.error("Wrong input: " + input);
-            }
-        }
-    *
-    * */
-
 }

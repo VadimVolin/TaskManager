@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 
 public class MenuView {
 
-    final static Logger logger = Logger.getLogger(MenuView.class);
 
     public MenuView() {
         System.out.println("\tMenu:");
