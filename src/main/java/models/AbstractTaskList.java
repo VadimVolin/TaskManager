@@ -39,6 +39,8 @@ public abstract class AbstractTaskList implements Iterable<Task> {
                     return AbstractTaskList.this.getTask(iteratorCount + 1) != null;
                 } catch (NullPointerException e) {
                     return false;
+                } catch (IndexOutOfBoundsException e) {
+                    return false;
                 }
             }
 

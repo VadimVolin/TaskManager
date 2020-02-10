@@ -27,10 +27,10 @@ public class Tasks {
         while (iterator.hasNext()) {
             arrayTaskList.add(iterator.next());
         }
-        for (LocalDateTime i = start; i.isBefore(end); i = i.plusMinutes(1)) {
+        for (LocalDateTime i = start; i.isBefore(end); i = i.plusDays(1)) {
             Set<Task> taskSet = new HashSet<>();
             ArrayTaskList incomingList =
-                    (ArrayTaskList) arrayTaskList.incoming(i, i.plusMinutes(1));
+                    (ArrayTaskList) arrayTaskList.incoming(i, i.plusDays(1));
             for (int j = 0; j < incomingList.size(); j++) {
                 taskSet.add(incomingList.getTask(j));
             }

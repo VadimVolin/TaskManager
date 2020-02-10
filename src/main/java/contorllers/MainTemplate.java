@@ -2,7 +2,7 @@ package contorllers;
 
 public interface MainTemplate {
 
-    void chooseMenuItem(int chosenItem);
+    void chooseMenuItem();
     int goToCurrentView();
 
 }

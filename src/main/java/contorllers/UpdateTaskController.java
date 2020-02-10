@@ -31,7 +31,6 @@ public class UpdateTaskController implements UpdateTaskTemplate{
             System.out.println("List is empty!");
             logger.info("list is empty - " + taskList.size());
         }
-        MainController.finishAction();
     }
 
     @Override

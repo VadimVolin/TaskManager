@@ -52,7 +52,6 @@ public class ReadInputUtil{
         String input = "";
         boolean inputFlag = true;
         while (inputFlag) {
-                System.out.println("Input string:");
                 if (!scanner.hasNext()){
                     input = scanner.nextLine();
                     logger.error("User input: " + input);
@@ -75,7 +74,6 @@ public class ReadInputUtil{
         String input = "";
         boolean inputFlag = true;
         while (inputFlag) {
-                System.out.println("Input date: ");
                 if (!scanner.hasNextLine()) {
                     String wrongInput = scanner.next();
                     System.out.println("Wrong value.. " + wrongInput);

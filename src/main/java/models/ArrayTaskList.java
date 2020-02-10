@@ -52,7 +52,7 @@ public class ArrayTaskList extends AbstractTaskList implements Iterable<Task>, C
         if (task == null) {
             return;
         }
-        if (count == taskArray.length - 2) {
+        if (count == taskArray.length - 4) {
             taskArray = resize(size);
         }
         taskArray[count] = task;
@@ -71,7 +71,7 @@ public class ArrayTaskList extends AbstractTaskList implements Iterable<Task>, C
     }
 
     private Task[] resize(int size) {
-        Task[] tasks = new Task[size * 2];
+        Task[] tasks = new Task[size * 4];
         System.arraycopy(taskArray, 0, tasks, 0, count);
         return tasks;
     }
@@ -101,7 +101,7 @@ public class ArrayTaskList extends AbstractTaskList implements Iterable<Task>, C
 
     @Override
     public Task getTask(int index) {
-        if (index > size() || index < 0) {
+        if (index >= size() || index < 0) {
             throw new IndexOutOfBoundsException("Index not in array size");
         }
         if (size() == 0) {

@@ -22,7 +22,6 @@ public class ShowListController implements ShowListTemplate{
         showListView = new ShowListView();
         arrayTaskList = initListFromFile();
         showListView.printTaskList(arrayTaskList);
-        MainController.finishAction();
     }
 
     private AbstractTaskList initListFromFile() {

@@ -14,13 +14,13 @@ import java.io.File;
 
 public class DeleteTaskController implements DeleteTaskTemplate{
 
-    final static Logger logger = Logger.getLogger(AddTaskView.class);
+    private final static Logger logger = Logger.getLogger(DeleteTaskController.class);
 
-    DeleteTaskViewTemplate deleteTaskView;
+    private DeleteTaskViewTemplate deleteTaskView;
 
-    AbstractTaskList taskList = null;
+    private AbstractTaskList taskList = null;
 
-    File fileTasks = null;
+    private File fileTasks = null;
 
     public DeleteTaskController () {
 
@@ -38,7 +38,6 @@ public class DeleteTaskController implements DeleteTaskTemplate{
             logger.info("List is empty");
         }
         ReadInputUtil.saveListToFile(taskList, fileTasks);
-        MainController.finishAction();
     }
 
     @Override

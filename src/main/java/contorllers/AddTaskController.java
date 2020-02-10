@@ -24,7 +24,6 @@ public class AddTaskController implements AddTaskTemplate {
         taskList = ReadInputUtil.getTaskListFromFile(fileTasks);
         addTaskToList();
         ReadInputUtil.saveListToFile(taskList, fileTasks);
-        MainController.finishAction();
     }
 
     @Override
