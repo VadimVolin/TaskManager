@@ -59,6 +59,17 @@ public class ArrayTaskList extends AbstractTaskList implements Iterable<Task>, C
         count++;
     }
 
+    public boolean put(int index, Task task) {
+        if (task == null) {
+            return false;
+        }
+        if (index > size()) {
+            return false;
+        }
+        taskArray[index] = task;
+        return true;
+    }
+
     private Task[] resize(int size) {
         Task[] tasks = new Task[size * 2];
         System.arraycopy(taskArray, 0, tasks, 0, count);

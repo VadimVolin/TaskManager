@@ -1,9 +1,11 @@
 package contorllers;
 
 import org.apache.log4j.Logger;
+import util.ReadInputUtil;
 import views.MenuView;
 
 import java.util.Scanner;
+
 
 public class MainController {
 
@@ -55,7 +57,7 @@ public class MainController {
     public static void finishAction() {
         System.out.println("Return to menu 1 | exit 0");
         int chosenVariant = 1;
-        chosenVariant = readIntFromInput(0, 1);
+        chosenVariant = ReadInputUtil.readIntFromInput(scanner, 0, 1);
         switch (chosenVariant) {
             case 1:
                 logger.info("User choose go to main menu");
@@ -68,30 +70,9 @@ public class MainController {
 
     public int goToCurrentView() {
         int chosenItem = 0;
-        chosenItem = readIntFromInput(1, 5);
+        chosenItem = ReadInputUtil.readIntFromInput(scanner, 1, 5);
         return chosenItem;
     }
 
-    public static int readIntFromInput(int from, int to) {
-        int chosenItem = 0;
-        boolean inputFlag = true;
-            while (inputFlag) {
-                System.out.println("Choose item:");
-                if (!scanner.hasNextInt()) {
-                    String input = scanner.next();
-                    System.out.printf("Wrong value.. input integer numbers from interval [%d ; %d]\n", from, to);
-                    logger.error("Wrong input: " + input);
-                } else {
-                    chosenItem = scanner.nextInt();
-                    if (chosenItem >= from && chosenItem <= to) {
-                        inputFlag = false;
-                    } else {
-                        System.out.printf("Wrong value.. input integer numbers from interval [%d ; %d]\n", from, to);
-                        logger.error("Wrong input: " + chosenItem);
-                    }
-                }
-            }
-        return chosenItem;
 
-    }
 }

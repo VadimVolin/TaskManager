@@ -145,21 +145,21 @@ public class Task implements Cloneable, Serializable {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder("Task: {");
+        StringBuilder stringBuilder = new StringBuilder("Task: ");
         if (isRepeated()) {
             stringBuilder.append(getTitle())
-                    .append("} start time: {")
+                    .append(" | start time: ")
                     .append(getStartTime())
-                    .append("} end time: {")
+                    .append(" | end time: ")
                     .append(getEndTime())
-                    .append("} interval time: {")
+                    .append(" | interval time: ")
                     .append(getRepeatInterval())
-                    .append("};");
+                    .append(" |");
         } else {
             stringBuilder.append(getTitle())
-                    .append("} time: {")
+                    .append(" | time:  ")
                     .append(getTime())
-                    .append("}");
+                    .append(" |");
         }
         return stringBuilder.toString();
     }
