@@ -178,7 +178,7 @@ public class Task implements Cloneable, Serializable {
             if (getEndTime().isBefore(current)) {
                 return null;
             } else {
-                for (LocalDateTime i = getStartTime();; i = i.plusSeconds(getRepeatInterval())) {
+                for (LocalDateTime i = getStartTime(); ; i = i.plusSeconds(getRepeatInterval())) {
                     if ( i.isAfter(current) && (i.isBefore(getEndTime()) || i.isEqual(getEndTime()))) {
                         return i;
                     }

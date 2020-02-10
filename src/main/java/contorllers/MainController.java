@@ -10,11 +10,14 @@ public class MainController {
     final static Logger logger = Logger.getLogger(MainController.class);
 
     private MenuView menuView;
-    private AddTaskTemplateController addTaskController;
+    private AddTaskController addTaskController;
     private UpdateTaskController updateTaskController;
     private DeleteTaskController deleteTaskController;
     private ShowListController showListController;
+
     private static Scanner scanner;
+
+
     public MainController() {
         menuView = new MenuView();
         scanner = new Scanner(System.in);
@@ -27,7 +30,7 @@ public class MainController {
             case 1:
                 logger.info("User choose add item view");
                 System.out.println("Load add item view");
-                addTaskController = new AddTaskTemplateController();
+                addTaskController = new AddTaskController();
             case 2:
                 logger.info("User choose update item");
                 System.out.println("Load update item view");

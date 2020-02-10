@@ -1,30 +1,31 @@
 package views;
 
+import contorllers.AddTaskController;
 import contorllers.MainController;
 import models.Task;
+import org.apache.log4j.Logger;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class AddTaskView {
 
+    final static Logger logger = Logger.getLogger(AddTaskView.class);
+
     private Scanner userInputScanner;
+
     private String title;
+
     private LocalDateTime time;
 
     private LocalDateTime start;
     private LocalDateTime end;
     private int interval;
-    private boolean active;
-    private boolean repeated;
 
     public AddTaskView() {
         userInputScanner = new Scanner(System.in);
         System.out.println("\t\tAdd task");
-    }
-
-    public void readUserInput() {
-
     }
 
     public Task printTaskTypeView() {
@@ -48,30 +49,48 @@ public class AddTaskView {
     }
 
     private Task readRepeatTaskData() {
+        Task task = null;
+
         System.out.print("Write task title:\n>:");
-        String title = userInputScanner.nextLine();
+        String title = AddTaskController.readStringFromInput(userInputScanner);
 
-        System.out.print("\nWrite start time in format yyyy-MM-dd HH:mm:ss\n>:");
-        String timeStart = userInputScanner.nextLine();
+        System.out.print("\nWrite start time in format yyyy-MM-dd HH:mm:ss for example 2016-11-09 11:44:44\n>:");
+        String timeStart = AddTaskController.readStringFromInput(userInputScanner);
 
-        System.out.print("\nWrite end time in format yyyy-MM-dd HH:mm:ss\n>:");
-        String timeEnd = userInputScanner.nextLine();
+        System.out.print("\nWrite end time in format yyyy-MM-dd HH:mm:ss for example 2016-11-09 11:44:44\n>:");
+        String timeEnd = AddTaskController.readStringFromInput(userInputScanner);
 
-        System.out.print("\nWrite interval time in format yyyy-MM-dd HH:mm:ss\n>:");
-        int interval = userInputScanner.nextInt();
+        System.out.print("\nWrite interval time in minutes\n>:");
+        int intervalInMinutes = MainController.readIntFromInput(0, 1000);
+        interval = intervalInMinutes * 60;
 
-        return ;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        start = LocalDateTime.parse(timeStart, formatter);
+        end = LocalDateTime.parse(timeEnd, formatter);
+
+        if (!title.isEmpty() && !timeStart.isEmpty() && !timeEnd.isEmpty() && interval >= 0) {
+            task = new Task(title, start, end, interval);
+        }
+
+        return task;
     }
 
     private Task readNoRepeatTaskData() {
-
+        Task task = null;
         System.out.print("Write task title:\n>:");
-        String title = userInputScanner.nextLine();
+        String title = AddTaskController.readStringFromInput(userInputScanner);
 
-        System.out.print("\nWrite time:\n>:");
-        String time = userInputScanner.nextLine();
+        System.out.print("\nWrite end time in format 'yyyy-MM-dd HH:mm:ss' for example 2016-11-09 11:44:44\n>:");
+        String taskTime = AddTaskController.readStringFromInput(userInputScanner);
 
-        return ;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        time = LocalDateTime.parse(taskTime, formatter);
+
+        if (!title.isEmpty()) {
+            task = new Task(title, time);
+        }
+
+        return task;
     }
 
 }

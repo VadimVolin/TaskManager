@@ -1,0 +1,53 @@
+[
+  {
+    "title": "sdfsdsdf",
+    "time": {
+      "date": {
+        "year": 2010,
+        "month": 12,
+        "day": 12
+      },
+      "time": {
+        "hour": 12,
+        "minute": 12,
+        "second": 12,
+        "nano": 0
+      }
+    },
+    "interval": 0,
+    "active": false,
+    "repeated": false
+  },
+  {
+    "title": "File reader cool",
+    "start": {
+      "date": {
+        "year": 2012,
+        "month": 11,
+        "day": 12
+      },
+      "time": {
+        "hour": 12,
+        "minute": 12,
+        "second": 12,
+        "nano": 0
+      }
+    },
+    "end": {
+      "date": {
+        "year": 2015,
+        "month": 12,
+        "day": 12
+      },
+      "time": {
+        "hour": 12,
+        "minute": 12,
+        "second": 12,
+        "nano": 0
+      }
+    },
+    "interval": 12780,
+    "active": false,
+    "repeated": true
+  }
+]

@@ -5,7 +5,7 @@ import models.Task;
 
 public interface AddTaskTemplate {
 
-    void addTaskToList(Task task);
+    void addTaskToList();
     void saveListToFile();
     AbstractTaskList getTaskListFromFile();
 

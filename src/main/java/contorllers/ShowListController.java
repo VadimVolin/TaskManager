@@ -28,8 +28,9 @@ public class ShowListController {
     }
 
     private AbstractTaskList initListFromFile() {
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource("tasks.txt").getFile());
+//        ClassLoader classLoader = getClass().getClassLoader();
+//        File file = new File(classLoader.getResource("tasks.txt").getFile());
+        File file = new File("tasks.json");
 
         AbstractTaskList taskList = new ArrayTaskList();
         if (!file.exists()) {
