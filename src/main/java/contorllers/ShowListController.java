@@ -5,20 +5,18 @@ import models.ArrayTaskList;
 import models.TaskIO;
 import org.apache.log4j.Logger;
 import org.json.simple.parser.ParseException;
-import views.MenuView;
 import views.ShowListView;
+import views.ShowListViewTemplate;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Scanner;
 
-public class ShowListController {
+public class ShowListController implements ShowListTemplate{
 
-    ShowListView showListView;
+    ShowListViewTemplate showListView;
     AbstractTaskList arrayTaskList;
 
     final static Logger logger = Logger.getLogger(ShowListController.class);
-
 
     public ShowListController() {
         showListView = new ShowListView();

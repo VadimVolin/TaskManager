@@ -2,14 +2,10 @@ package models;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Iterator;
 
 public class TaskIO {
@@ -128,7 +124,9 @@ public class TaskIO {
         Task[] arrTasks = new Task[tasks.size()];
         int i = 0;
         do {
-            arrTasks[i++] = iterator.next();
+            if (i < tasks.size()) {
+                arrTasks[i++] = iterator.next();
+            }
         } while (iterator.hasNext());
         gson.toJson(arrTasks, out);
         out.close();
@@ -158,6 +156,9 @@ public class TaskIO {
     public static void read(AbstractTaskList tasks, Reader in) throws IOException, ParseException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         Task[] arrayTasks = gson.fromJson(in, Task[].class);
+        if (arrayTasks == null) {
+            return;
+        }
         for (Task task : arrayTasks) {
             tasks.add(task);
         }

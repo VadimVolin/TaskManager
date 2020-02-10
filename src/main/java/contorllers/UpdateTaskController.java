@@ -7,42 +7,43 @@ import org.apache.log4j.Logger;
 import util.ReadInputUtil;
 import views.AddTaskView;
 import views.UpdateTaskView;
+import views.UpdateTaskViewTemplate;
 
 import java.io.File;
-import java.time.LocalDateTime;
-import java.util.Scanner;
 
 public class UpdateTaskController implements UpdateTaskTemplate{
 
     final static Logger logger = Logger.getLogger(AddTaskView.class);
 
-    UpdateTaskView updateTaskView;
-
+    UpdateTaskViewTemplate updateTaskView;
     AbstractTaskList taskList = null;
-
     File fileTasks = null;
 
     public UpdateTaskController () {
-
-        fileTasks = new File("tasks.json");
-
-        taskList = ReadInputUtil.getTaskListFromFile(fileTasks);
-
         updateTaskView = new UpdateTaskView();
-        updateTaskView.printList(taskList);
-        updateTaskView.printUpdateInfo();
-        int index = updateTaskView.readChoosingTask(1, taskList.size()) - 1;
-        Task task = updateTaskView.updateTaskData(taskList.getTask(index));
-        updateTask(index, task);
-        ReadInputUtil.saveListToFile(taskList, fileTasks);
+        fileTasks = new File("tasks.json");
+        taskList = ReadInputUtil.getTaskListFromFile(fileTasks);
+        if (taskList.size() > 0) {
+            updateTaskView.printList(taskList);
+            updateTaskView.printUpdateInfo();
+            updateTask();
+        } else {
+            System.out.println("List is empty!");
+            logger.info("list is empty - " + taskList.size());
+        }
         MainController.finishAction();
     }
 
     @Override
-    public void updateTask(int index, Task task) {
+    public void updateTask() {
+        int index = updateTaskView.readChoosingTask(1, taskList.size()) - 1;
+        Task task = updateTaskView.updateTaskData(taskList.getTask(index));
+        ReadInputUtil.saveListToFile(taskList, fileTasks);
         boolean puttingFlag = ((ArrayTaskList) taskList).put(index, task);
         if (puttingFlag) {
             logger.info("Task update :" + index + " | " + task);
+        } else {
+            logger.error("Error task update :" + index + " | " + task);
         }
     }
 }

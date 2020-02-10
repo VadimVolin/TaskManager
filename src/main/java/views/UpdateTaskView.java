@@ -6,14 +6,10 @@ import util.ReadInputUtil;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
 
-public class UpdateTaskView {
-
-    Scanner scanner;
+public class UpdateTaskView implements UpdateTaskViewTemplate{
 
     public UpdateTaskView() {
-        scanner = new Scanner(System.in);
         printStartInfo();
     }
 
@@ -36,7 +32,7 @@ public class UpdateTaskView {
     }
 
     public int readChoosingTask(int from, int to) {
-        int index = ReadInputUtil.readIntFromInput(scanner, from, to);
+        int index = ReadInputUtil.readIntFromInput(from, to);
         return index;
     }
 
@@ -54,13 +50,13 @@ public class UpdateTaskView {
     public Task updateNoRepeatTask(Task task) {
         System.out.println("Update title?");
         System.out.println("Write 1 to update, 0 to skip:");
-        int chosenItem = ReadInputUtil.readIntFromInput(scanner, 0, 1);
+        int chosenItem = ReadInputUtil.readIntFromInput(0, 1);
         switch (chosenItem) {
             case 0:
                 break;
             case 1:
                 System.out.print("Write task title:\n>:");
-                String title = ReadInputUtil.readStringFromInput(scanner);
+                String title = ReadInputUtil.readStringFromInput();
                 task.setTitle(title);
                 break;
             default:
@@ -69,13 +65,13 @@ public class UpdateTaskView {
         chosenItem = -1;
         System.out.println("Update date?");
         System.out.println("Write 1 to update, 0 to skip:");
-        chosenItem = ReadInputUtil.readIntFromInput(scanner, 0, 1);
+        chosenItem = ReadInputUtil.readIntFromInput(0, 1);
         switch (chosenItem) {
             case 0:
                 break;
             case 1:
                 System.out.print("\nWrite start time in format 'yyyy-MM-dd HH:mm:ss' for example 2016-11-09 11:44:44\n>:");
-                String taskTime = ReadInputUtil.readDateString(scanner);
+                String taskTime = ReadInputUtil.readDateString();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 LocalDateTime time = LocalDateTime.parse(taskTime, formatter);
                 task.setTime(time);
@@ -90,13 +86,13 @@ public class UpdateTaskView {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         System.out.println("Update title?");
         System.out.println("Write 1 to update, 0 to skip:");
-        int chosenItem = ReadInputUtil.readIntFromInput(scanner, 0, 1);
+        int chosenItem = ReadInputUtil.readIntFromInput(0, 1);
         switch (chosenItem) {
             case 0:
                 break;
             case 1:
                 System.out.print("Write task title:\n>:");
-                String title = ReadInputUtil.readStringFromInput(scanner);
+                String title = ReadInputUtil.readStringFromInput();
                 task.setTitle(title);
                 break;
             default:
@@ -107,13 +103,13 @@ public class UpdateTaskView {
         System.out.println("Write 1 to update, 0 to skip:");
         LocalDateTime timeStart = null;
         LocalDateTime timeEnd = null;
-        chosenItem = ReadInputUtil.readIntFromInput(scanner, 0, 1);
+        chosenItem = ReadInputUtil.readIntFromInput(0, 1);
         switch (chosenItem) {
             case 0:
                 break;
             case 1:
                 System.out.print("\nWrite start time in format 'yyyy-MM-dd HH:mm:ss' for example 2016-11-09 11:44:44\n>:");
-                String taskTime = ReadInputUtil.readDateString(scanner);
+                String taskTime = ReadInputUtil.readDateString();
                 timeStart = LocalDateTime.parse(taskTime, formatter);
                 break;
             default:
@@ -122,14 +118,14 @@ public class UpdateTaskView {
         chosenItem = -1;
         System.out.println("Update date end?");
         System.out.println("Write 1 to update, 0 to skip:");
-        chosenItem = ReadInputUtil.readIntFromInput(scanner, 0, 1);
+        chosenItem = ReadInputUtil.readIntFromInput(0, 1);
         switch (chosenItem) {
             case 0:
                 break;
             case 1:
                 while(true) {
                     System.out.print("\nWrite end time in format 'yyyy-MM-dd HH:mm:ss' for example 2016-11-09 11:44:44\n>:");
-                    String taskTime = ReadInputUtil.readDateString(scanner);
+                    String taskTime = ReadInputUtil.readDateString();
                     timeEnd = LocalDateTime.parse(taskTime, formatter);
                     if (timeEnd.isAfter(timeStart)) {
                         break;
@@ -145,13 +141,13 @@ public class UpdateTaskView {
         int interval = 0;
         System.out.println("Update interval?");
         System.out.println("Write 1 to update, 0 to skip:");
-        chosenItem = ReadInputUtil.readIntFromInput(scanner, 0, 1);
+        chosenItem = ReadInputUtil.readIntFromInput(0, 1);
         switch (chosenItem) {
             case 0:
                 break;
             case 1:
                 System.out.println("Write new date:");
-                interval = ReadInputUtil.readIntFromInput(scanner, 0, 1000);
+                interval = ReadInputUtil.readIntFromInput(0, 1000);
                 break;
             default:
                 break;

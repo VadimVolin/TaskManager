@@ -3,9 +3,7 @@ package views;
 import models.AbstractTaskList;
 import models.Task;
 
-import java.util.Scanner;
-
-public class ShowListView {
+public class ShowListView implements ShowListViewTemplate{
 
     public ShowListView() {
 

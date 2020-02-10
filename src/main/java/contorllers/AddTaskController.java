@@ -1,25 +1,19 @@
 package contorllers;
 
 import models.AbstractTaskList;
-import models.ArrayTaskList;
 import models.Task;
-import models.TaskIO;
 import org.apache.log4j.Logger;
-import org.json.simple.parser.ParseException;
 import util.ReadInputUtil;
 import views.AddTaskView;
+import views.AddTaskViewTemplate;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.Scanner;
 
 public class AddTaskController implements AddTaskTemplate {
 
-    AddTaskView addTaskView = null;
-
-    AbstractTaskList taskList = null;
     final static Logger logger = Logger.getLogger(AddTaskController.class);
-
+    AddTaskViewTemplate addTaskView = null;
+    AbstractTaskList taskList = null;
     File fileTasks = null;
 
     public AddTaskController() {
