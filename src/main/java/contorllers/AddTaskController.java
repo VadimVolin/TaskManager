@@ -48,7 +48,6 @@ public class AddTaskController implements AddTaskTemplate {
         }
         try {
             TaskIO.writeText(taskList, fileTasks);
-            System.out.println("YA ZAPISAL");
 
         } catch (IOException e) {
             logger.error("IOException in read from file", e);
@@ -65,7 +64,6 @@ public class AddTaskController implements AddTaskTemplate {
         }
         try {
             TaskIO.readText(taskList, fileTasks);
-            System.out.println("YA PROCHETAL");
         } catch (IOException e) {
             logger.error("IOException in read from file", e);
         } catch (ParseException e) {
