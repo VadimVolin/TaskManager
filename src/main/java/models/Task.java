@@ -154,11 +154,13 @@ public class Task implements Cloneable, Serializable {
                     .append(getEndTime().toString().replace('T', ' '))
                     .append(" | interval time(in seconds): ")
                     .append(getRepeatInterval())
+                    .append(" | active: " + (isActive() ? "Yes" : "No"))
                     .append(" |");
         } else {
             stringBuilder.append(getTitle())
                     .append(" | time:  ")
                     .append(getTime().toString().replace('T', ' '))
+                    .append(" | active: " + (isActive() ? "Yes" : "No"))
                     .append(" |");
         }
         return stringBuilder.toString();
