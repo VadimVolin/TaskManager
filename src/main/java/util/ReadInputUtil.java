@@ -76,7 +76,7 @@ public class ReadInputUtil{
         while (inputFlag) {
                 if (!scanner.hasNextLine()) {
                     String wrongInput = scanner.next();
-                    System.out.println("Wrong value.. " + wrongInput);
+                    System.out.println("Wrong value.. ");
                     logger.error("Wrong input:" + wrongInput);
                 } else {
                     input = scanner.nextLine();

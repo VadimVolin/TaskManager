@@ -66,7 +66,6 @@ public class CalendarController implements CalendarControllerTemplate {
                 if (flag) {
                     System.out.println("File " + fileName + " saved!");
                     logger.info("file saved");
-                    System.out.println("return to menu..");
                     break;
                 } else{
                     System.out.println("File " + fileName + " not saved!");
