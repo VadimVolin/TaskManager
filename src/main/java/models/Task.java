@@ -149,16 +149,16 @@ public class Task implements Cloneable, Serializable {
         if (isRepeated()) {
             stringBuilder.append(getTitle())
                     .append(" | start time: ")
-                    .append(getStartTime())
+                    .append(getStartTime().toString().replace('T', ' '))
                     .append(" | end time: ")
-                    .append(getEndTime())
+                    .append(getEndTime().toString().replace('T', ' '))
                     .append(" | interval time: ")
                     .append(getRepeatInterval())
                     .append(" |");
         } else {
             stringBuilder.append(getTitle())
                     .append(" | time:  ")
-                    .append(getTime())
+                    .append(getTime().toString().replace('T', ' '))
                     .append(" |");
         }
         return stringBuilder.toString();
