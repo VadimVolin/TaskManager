@@ -152,7 +152,7 @@ public class Task implements Cloneable, Serializable {
                     .append(getStartTime().toString().replace('T', ' '))
                     .append(" | end time: ")
                     .append(getEndTime().toString().replace('T', ' '))
-                    .append(" | interval time: ")
+                    .append(" | interval time(in seconds): ")
                     .append(getRepeatInterval())
                     .append(" |");
         } else {
