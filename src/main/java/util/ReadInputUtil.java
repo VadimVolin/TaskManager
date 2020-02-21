@@ -10,9 +10,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class ReadInputUtil{
+public class ReadInputUtil {
     private final static Logger logger = Logger.getLogger(ReadInputUtil.class);
-    private static Scanner scanner = null;
+    private static Scanner scanner = new Scanner(System.in);
 
     public static void saveListToFile(AbstractTaskList taskList, File fileTasks) {
         if (!fileTasks.exists()) {
@@ -48,56 +48,53 @@ public class ReadInputUtil{
     }
 
     public static String readStringFromInput() {
-        scanner = new Scanner(System.in);
         String input = "";
         boolean inputFlag = true;
         while (inputFlag) {
-                if (!scanner.hasNext()){
-                    input = scanner.nextLine();
-                    logger.error("User input: " + input);
+            if (!scanner.hasNext()) {
+                input = scanner.nextLine();
+                logger.error("User input: " + input);
+            } else {
+                input = scanner.nextLine();
+                if (input.trim().isEmpty()) {
+                    System.out.println("Wrong value.. string is empty");
+                    logger.error("Wrong input: string is empty :" + input);
                 } else {
-                    input = scanner.nextLine();
-                    if (input.trim().isEmpty()) {
-                        System.out.println("Wrong value.. string is empty");
-                        logger.error("Wrong input: string is empty :" + input);
-                    } else {
-                        inputFlag = false;
-                    }
+                    inputFlag = false;
                 }
+            }
         }
         return input;
     }
 
     public static String readDateString() {
-        scanner = new Scanner(System.in);
 
         String input = "";
         boolean inputFlag = true;
         while (inputFlag) {
-                if (!scanner.hasNextLine()) {
-                    String wrongInput = scanner.next();
-                    System.out.println("Wrong value.. ");
-                    logger.error("Wrong input:" + wrongInput);
-                } else {
-                    input = scanner.nextLine();
-                    if (input.matches("(\\d{4})-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])\\s(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$")) {
-                        if (!input.trim().isEmpty()) {
-                            inputFlag = false;
-                        } else {
-                            System.out.println("Wrong value.. string is empty");
-                            logger.error("Wrong input: string is empty :" + input);
-                        }
+            if (!scanner.hasNextLine()) {
+                String wrongInput = scanner.next();
+                System.out.println("Wrong value.. ");
+                logger.error("Wrong input:" + wrongInput);
+            } else {
+                input = scanner.nextLine();
+                if (input.matches("(\\d{4})-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])\\s(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$")) {
+                    if (!input.trim().isEmpty()) {
+                        inputFlag = false;
                     } else {
-                        System.out.println("Wrong value.. wrong format");
-                        logger.error("Wrong input: wrong format:" + input);
+                        System.out.println("Wrong value.. string is empty");
+                        logger.error("Wrong input: string is empty :" + input);
                     }
+                } else {
+                    System.out.println("Wrong value.. wrong format");
+                    logger.error("Wrong input: wrong format:" + input);
                 }
             }
+        }
         return input;
     }
 
     public static int readIntFromInput(int from, int to) {
-        scanner = new Scanner(System.in);
 
         int chosenItem = 0;
         boolean inputFlag = true;

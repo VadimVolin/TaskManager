@@ -11,10 +11,9 @@ import java.io.File;
 
 public class AddTaskController implements AddTaskTemplate {
 
-    final static Logger logger = Logger.getLogger(AddTaskController.class);
-    AddTaskViewTemplate addTaskView = null;
-    AbstractTaskList taskList = null;
-    File fileTasks = null;
+    AddTaskViewTemplate addTaskView;
+    AbstractTaskList taskList;
+    File fileTasks;
 
     public AddTaskController() {
         addTaskView = new AddTaskView();

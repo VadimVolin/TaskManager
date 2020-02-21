@@ -44,20 +44,20 @@ public class AddTaskView implements AddTaskViewTemplate{
 
     }
 
-    private Task readRepeatTaskData() {
+    public Task readRepeatTaskData() {
         Task task = null;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         System.out.print("Write task title:\n>:");
         String title = ReadInputUtil.readStringFromInput();
 
-        System.out.print("\nWrite start time in format yyyy-MM-dd HH:mm:ss for example 2016-11-09 11:44:44\n>:");
+        System.out.print("\nWrite start time in format yyyy-MM-dd HH:mm for example 2016-11-09 11:44\n>:");
         String timeStart = ReadInputUtil.readDateString();
 
         start = LocalDateTime.parse(timeStart, formatter);
 
         while(true) {
-            System.out.print("\nWrite end time in format yyyy-MM-dd HH:mm:ss for example 2016-11-09 11:44:44\n>:");
+            System.out.print("\nWrite end time in format yyyy-MM-dd HH:mm for example 2016-11-09 11:44\n>:");
             String timeEnd = ReadInputUtil.readDateString();
             end = LocalDateTime.parse(timeEnd, formatter);
             if (end.isAfter(start)) {
@@ -76,15 +76,15 @@ public class AddTaskView implements AddTaskViewTemplate{
         return task;
     }
 
-    private Task readNoRepeatTaskData() {
+    public Task readNoRepeatTaskData() {
         Task task = null;
         System.out.print("Write task title:\n>:");
         String title = ReadInputUtil.readStringFromInput();
 
-        System.out.print("\nWrite time in format 'yyyy-MM-dd HH:mm:ss' for example 2016-11-09 11:44:44\n>:");
+        System.out.print("\nWrite time in format 'yyyy-MM-dd HH:mm' for example 2016-11-09 11:44\n>:");
         String taskTime = ReadInputUtil.readDateString();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         time = LocalDateTime.parse(taskTime, formatter);
 
         if (!title.isEmpty()) {

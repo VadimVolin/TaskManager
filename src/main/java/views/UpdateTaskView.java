@@ -70,9 +70,9 @@ public class UpdateTaskView implements UpdateTaskViewTemplate{
             case 0:
                 break;
             case 1:
-                System.out.print("\nWrite start time in format 'yyyy-MM-dd HH:mm:ss' for example 2016-11-09 11:44:44\n>:");
+                System.out.print("\nWrite start time in format 'yyyy-MM-dd HH:mm' for example 2016-11-09 11:44\n>:");
                 String taskTime = ReadInputUtil.readDateString();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 LocalDateTime time = LocalDateTime.parse(taskTime, formatter);
                 task.setTime(time);
                 break;
@@ -83,7 +83,7 @@ public class UpdateTaskView implements UpdateTaskViewTemplate{
     }
 
     public Task updateRepeatTask(Task task) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         System.out.println("Update title?");
         System.out.println("Write 1 to update, 0 to skip:");
         int chosenItem = ReadInputUtil.readIntFromInput(0, 1);
@@ -98,7 +98,6 @@ public class UpdateTaskView implements UpdateTaskViewTemplate{
             default:
                 break;
         }
-        chosenItem = -1;
         System.out.println("Update date start?");
         System.out.println("Write 1 to update, 0 to skip:");
         LocalDateTime timeStart = null;
@@ -108,14 +107,13 @@ public class UpdateTaskView implements UpdateTaskViewTemplate{
             case 0:
                 break;
             case 1:
-                System.out.print("\nWrite start time in format 'yyyy-MM-dd HH:mm:ss' for example 2016-11-09 11:44:44\n>:");
+                System.out.print("\nWrite start time in format 'yyyy-MM-dd HH:mm' for example 2016-11-09 11:44\n>:");
                 String taskTime = ReadInputUtil.readDateString();
                 timeStart = LocalDateTime.parse(taskTime, formatter);
                 break;
             default:
                 break;
         }
-        chosenItem = -1;
         System.out.println("Update date end?");
         System.out.println("Write 1 to update, 0 to skip:");
         chosenItem = ReadInputUtil.readIntFromInput(0, 1);
@@ -124,7 +122,7 @@ public class UpdateTaskView implements UpdateTaskViewTemplate{
                 break;
             case 1:
                 while(true) {
-                    System.out.print("\nWrite end time in format 'yyyy-MM-dd HH:mm:ss' for example 2016-11-09 11:44:44\n>:");
+                    System.out.print("\nWrite end time in format 'yyyy-MM-dd HH:mm' for example 2016-11-09 11:44\n>:");
                     String taskTime = ReadInputUtil.readDateString();
                     timeEnd = LocalDateTime.parse(taskTime, formatter);
                     if (timeEnd.isAfter(timeStart)) {
@@ -137,7 +135,6 @@ public class UpdateTaskView implements UpdateTaskViewTemplate{
             default:
                 break;
         }
-        chosenItem = -1;
         int interval = 0;
         System.out.println("Update interval?");
         System.out.println("Write 1 to update, 0 to skip:");
@@ -146,7 +143,7 @@ public class UpdateTaskView implements UpdateTaskViewTemplate{
             case 0:
                 break;
             case 1:
-                System.out.println("Write new date:");
+                System.out.println("Write new interval:");
                 interval = ReadInputUtil.readIntFromInput(0, 1000);
                 break;
             default:
