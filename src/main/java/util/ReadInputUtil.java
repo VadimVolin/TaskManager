@@ -12,6 +12,11 @@ import java.util.Scanner;
 
 public class ReadInputUtil {
     private final static Logger logger = Logger.getLogger(ReadInputUtil.class);
+
+    public static Scanner getScanner() {
+        return scanner;
+    }
+
     private static Scanner scanner = new Scanner(System.in);
 
     public static void saveListToFile(AbstractTaskList taskList, File fileTasks) {

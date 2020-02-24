@@ -82,6 +82,7 @@ public class MainController implements MainTemplate {
                 case 7:
                     logger.info("User choose exit");
                     System.out.println("User choose exit");
+                    ReadInputUtil.getScanner().close();
                     System.exit(0);
                     break;
                 default:
