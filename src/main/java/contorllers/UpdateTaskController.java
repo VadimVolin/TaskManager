@@ -16,8 +16,8 @@ public class UpdateTaskController implements UpdateTaskTemplate{
     final static Logger logger = Logger.getLogger(AddTaskView.class);
 
     UpdateTaskViewTemplate updateTaskView;
-    AbstractTaskList taskList = null;
-    File fileTasks = null;
+    AbstractTaskList taskList;
+    File fileTasks;
 
     public UpdateTaskController () {
         updateTaskView = new UpdateTaskView();
@@ -36,13 +36,8 @@ public class UpdateTaskController implements UpdateTaskTemplate{
     @Override
     public void updateTask() {
         int index = updateTaskView.readChoosingTask(1, taskList.size()) - 1;
-        Task task = updateTaskView.updateTaskData(taskList.getTask(index));
+        updateTaskView.updateTaskData(taskList.getTask(index));
         ReadInputUtil.saveListToFile(taskList, fileTasks);
-        boolean puttingFlag = ((ArrayTaskList) taskList).put(index, task);
-        if (puttingFlag) {
-            logger.info("Task update :" + index + " | " + task);
-        } else {
-            logger.error("Error task update :" + index + " | " + task);
-        }
+            logger.info("Task update :" + index + " | " + taskList.getTask(index));
     }
 }

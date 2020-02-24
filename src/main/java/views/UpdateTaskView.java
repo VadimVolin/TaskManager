@@ -7,7 +7,7 @@ import util.ReadInputUtil;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class UpdateTaskView implements UpdateTaskViewTemplate{
+public class UpdateTaskView implements UpdateTaskViewTemplate {
 
     public UpdateTaskView() {
         printStartInfo();
@@ -19,7 +19,7 @@ public class UpdateTaskView implements UpdateTaskViewTemplate{
 
     public void printList(AbstractTaskList abstractTaskList) {
         int i = 0;
-        for (Task task: abstractTaskList) {
+        for (Task task : abstractTaskList) {
             i++;
             System.out.println(i + " " + task);
         }
@@ -31,126 +31,147 @@ public class UpdateTaskView implements UpdateTaskViewTemplate{
         System.out.println("\t Update task:");
     }
 
+    public void printUpdateInfoForRepeatTask() {
+        System.out.println("1. Update title");
+        System.out.println("2. Update start time");
+        System.out.println("3. Update end time");
+        System.out.println("4. Update interval");
+        System.out.println("5. Change active");
+        System.out.println("6. Change to single time task");
+    }
+
+    public void printUpdateInfoForNoRepeatTask() {
+        System.out.println("1. Update title");
+        System.out.println("2. Update time");
+        System.out.println("3. Change active");
+        System.out.println("4. Change to repeat task");
+    }
+
     public int readChoosingTask(int from, int to) {
         int index = ReadInputUtil.readIntFromInput(from, to);
         return index;
     }
 
-    public Task updateTaskData(Task task) {
-
-        Task newTask = null;
+    public void updateTaskData(Task task) {
         if (task.isRepeated()) {
-            newTask = updateRepeatTask(task);
+            printUpdateInfoForRepeatTask();
+            readNewRepeatTaskData(task);
         } else {
-            newTask = updateNoRepeatTask(task);
+            printUpdateInfoForNoRepeatTask();
+            readNewNoRepeatTaskData(task);
         }
-        return newTask;
     }
 
-    public Task updateNoRepeatTask(Task task) {
-        System.out.println("Update title?");
-        System.out.println("Write 1 to update, 0 to skip:");
-        int chosenItem = ReadInputUtil.readIntFromInput(0, 1);
-        switch (chosenItem) {
-            case 0:
-                break;
+    public void readNewRepeatTaskData(Task task) {
+        int index = ReadInputUtil.readIntFromInput(1, 6);
+        switch (index) {
             case 1:
-                System.out.print("Write task title:\n>:");
-                String title = ReadInputUtil.readStringFromInput();
-                task.setTitle(title);
+                String newTitle = readNewTaskTitle();
+                task.setTitle(newTitle);
+                break;
+            case 2:
+                LocalDateTime dateTime = readNewDate();
+                task.setTime(dateTime, task.getEndTime(), task.getRepeatInterval());
+                break;
+            case 3:
+                LocalDateTime newEndTime = readNewEndTime(task.getStartTime());
+                task.setTime(task.getStartTime(), newEndTime, task.getRepeatInterval());
+                break;
+            case 4:
+                int interval = readNewIntervalInMinutes() * 60;
+                task.setTime(task.getStartTime(), task.getEndTime(), interval);
+                break;
+            case 5:
+                boolean isActive = changeActivity();
+                task.setActive(isActive);
+                break;
+            case 6:
+                changeToNoRepeat(task);
                 break;
             default:
                 break;
         }
-        chosenItem = -1;
-        System.out.println("Update date?");
-        System.out.println("Write 1 to update, 0 to skip:");
-        chosenItem = ReadInputUtil.readIntFromInput(0, 1);
-        switch (chosenItem) {
-            case 0:
-                break;
+    }
+
+    public void readNewNoRepeatTaskData(Task task) {
+        int index = ReadInputUtil.readIntFromInput(1, 4);
+        switch (index) {
             case 1:
-                System.out.print("\nWrite start time in format 'yyyy-MM-dd HH:mm' for example 2016-11-09 11:44\n>:");
-                String taskTime = ReadInputUtil.readDateString();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                LocalDateTime time = LocalDateTime.parse(taskTime, formatter);
-                task.setTime(time);
+                String newTitle = readNewTaskTitle();
+                task.setTitle(newTitle);
+                break;
+            case 2:
+                LocalDateTime dateTime = readNewDate();
+                task.setTime(dateTime);
+                break;
+            case 3:
+                boolean isActive = changeActivity();
+                task.setActive(isActive);
+                break;
+            case 4:
+                changeToRepeat(task);
                 break;
             default:
                 break;
         }
-        return task;
     }
 
-    public Task updateRepeatTask(Task task) {
+    public void changeToRepeat(Task task) {
+        LocalDateTime dateTime = readNewDate();
+        LocalDateTime newEndTime = readNewEndTime(dateTime);
+        int interval = readNewIntervalInMinutes() * 60;
+        task.setTime(dateTime, newEndTime, interval);
+    }
+
+    public void changeToNoRepeat(Task task) {
+        LocalDateTime time = readNewDate();
+        task.setTime(time);
+    }
+
+    public boolean changeActivity() {
+        System.out.println("Write 1 to set active, 0 to set passive");
+        while (true) {
+            int item = ReadInputUtil.readIntFromInput(0, 1);
+            switch (item) {
+                case 0:
+                    return false;
+                case 1:
+                    return true;
+            }
+        }
+    }
+
+    public String readNewTaskTitle() {
+        System.out.print("Write task title:\n>:");
+        String title = ReadInputUtil.readStringFromInput();
+        return title;
+    }
+
+    public LocalDateTime readNewDate() {
+        System.out.print("\nWrite time in format 'yyyy-MM-dd HH:mm' for example 2016-11-09 11:44\n>:");
+        String taskTime = ReadInputUtil.readDateString();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        System.out.println("Update title?");
-        System.out.println("Write 1 to update, 0 to skip:");
-        int chosenItem = ReadInputUtil.readIntFromInput(0, 1);
-        switch (chosenItem) {
-            case 0:
-                break;
-            case 1:
-                System.out.print("Write task title:\n>:");
-                String title = ReadInputUtil.readStringFromInput();
-                task.setTitle(title);
-                break;
-            default:
-                break;
+        LocalDateTime time = LocalDateTime.parse(taskTime, formatter);
+        return time;
+    }
+
+    public LocalDateTime readNewEndTime(LocalDateTime timeStart) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime timeEnd;
+        while (true) {
+            System.out.print("\nWrite end time in format 'yyyy-MM-dd HH:mm' for example 2016-11-09 11:44\n>:");
+            String taskTime = ReadInputUtil.readDateString();
+            timeEnd = LocalDateTime.parse(taskTime, formatter);
+            if (timeEnd.isAfter(timeStart)) {
+                return timeEnd;
+            } else {
+                System.out.println("Time must be after start of task");
+            }
         }
-        System.out.println("Update date start?");
-        System.out.println("Write 1 to update, 0 to skip:");
-        LocalDateTime timeStart = null;
-        LocalDateTime timeEnd = null;
-        chosenItem = ReadInputUtil.readIntFromInput(0, 1);
-        switch (chosenItem) {
-            case 0:
-                break;
-            case 1:
-                System.out.print("\nWrite start time in format 'yyyy-MM-dd HH:mm' for example 2016-11-09 11:44\n>:");
-                String taskTime = ReadInputUtil.readDateString();
-                timeStart = LocalDateTime.parse(taskTime, formatter);
-                break;
-            default:
-                break;
-        }
-        System.out.println("Update date end?");
-        System.out.println("Write 1 to update, 0 to skip:");
-        chosenItem = ReadInputUtil.readIntFromInput(0, 1);
-        switch (chosenItem) {
-            case 0:
-                break;
-            case 1:
-                while(true) {
-                    System.out.print("\nWrite end time in format 'yyyy-MM-dd HH:mm' for example 2016-11-09 11:44\n>:");
-                    String taskTime = ReadInputUtil.readDateString();
-                    timeEnd = LocalDateTime.parse(taskTime, formatter);
-                    if (timeEnd.isAfter(timeStart)) {
-                        break;
-                    } else {
-                        System.out.println("Time must be after start of task");
-                    }
-                }
-                break;
-            default:
-                break;
-        }
-        int interval = 0;
-        System.out.println("Update interval?");
-        System.out.println("Write 1 to update, 0 to skip:");
-        chosenItem = ReadInputUtil.readIntFromInput(0, 1);
-        switch (chosenItem) {
-            case 0:
-                break;
-            case 1:
-                System.out.println("Write new interval:");
-                interval = ReadInputUtil.readIntFromInput(0, 1000);
-                break;
-            default:
-                break;
-        }
-        task.setTime(timeStart, timeEnd, interval);
-        return task;
+    }
+
+    public int readNewIntervalInMinutes() {
+        return ReadInputUtil.readIntFromInput(0, 1000);
     }
 
 

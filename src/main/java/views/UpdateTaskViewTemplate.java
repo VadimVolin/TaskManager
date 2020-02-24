@@ -3,15 +3,39 @@ package views;
 import models.AbstractTaskList;
 import models.Task;
 
+import java.time.LocalDateTime;
+
 public interface UpdateTaskViewTemplate {
 
     void printStartInfo();
+
     void printUpdateInfo();
+
     void printList(AbstractTaskList abstractTaskList);
+
     int readChoosingTask(int from, int to);
-    Task updateTaskData(Task task);
-    Task updateNoRepeatTask(Task task);
-    Task updateRepeatTask(Task task);
 
+    void updateTaskData(Task task);
 
+    void printUpdateInfoForRepeatTask();
+
+    void printUpdateInfoForNoRepeatTask();
+
+    void readNewRepeatTaskData(Task task);
+
+    void readNewNoRepeatTaskData(Task task);
+
+    void changeToRepeat(Task task);
+
+    void changeToNoRepeat(Task task);
+
+    boolean changeActivity();
+
+    String readNewTaskTitle();
+
+    LocalDateTime readNewDate();
+
+    LocalDateTime readNewEndTime(LocalDateTime timeStart);
+
+    int readNewIntervalInMinutes();
 }

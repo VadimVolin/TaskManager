@@ -19,6 +19,7 @@ public class NotificationController implements Runnable {
 
 
     private Thread thread;
+
     private AbstractTaskList taskList;
 
     private NotificationViewTemplate notificationView;
@@ -53,6 +54,10 @@ public class NotificationController implements Runnable {
                 }
             }
         }
+    }
+
+    public void setTaskList(AbstractTaskList taskList) {
+        this.taskList = taskList;
     }
 
     private synchronized ArrayTaskList getIntervalTasks(LocalDateTime now) {

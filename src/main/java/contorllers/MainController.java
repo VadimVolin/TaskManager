@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 
-public class MainController implements MainTemplate{
+public class MainController implements MainTemplate {
 
     final static Logger logger = Logger.getLogger(MainController.class);
 
@@ -23,31 +23,34 @@ public class MainController implements MainTemplate{
     private DeleteTaskTemplate deleteTaskController;
     private ShowListTemplate showListController;
     private CalendarControllerTemplate calendarController;
+    private NotificationController controller;
 
     private static Scanner scanner;
     AbstractTaskList abstractTaskList;
 
     public MainController() {
         abstractTaskList = ReadInputUtil.getTaskListFromFile(new File("tasks.json"));
-        NotificationController controller = new NotificationController(abstractTaskList);
-        Thread thread = new Thread(controller, "notificationController");
-        thread.setDaemon(true);
-        thread.start();
+        controller = new NotificationController(abstractTaskList);
         menuView = new MenuView();
         chooseMenuItem();
     }
 
     public void chooseMenuItem() {
 
-        startPoint:while (true) {
-        menuView.printInfo();
+        startPoint:
+        while (true) {
+            menuView.printInfo();
             int chosenMenuItem = goToCurrentView();
+
+            abstractTaskList = ReadInputUtil.getTaskListFromFile(new File("tasks.json"));
+            controller.setTaskList(abstractTaskList);
 
             switch (chosenMenuItem) {
                 case 1:
                     logger.info("User choose add item view");
                     System.out.println("Load add item view");
                     addTaskController = new AddTaskController();
+
                     continue startPoint;
                 case 2:
                     logger.info("User choose update item");
@@ -75,7 +78,7 @@ public class MainController implements MainTemplate{
                     try {
                         TaskIO.writeText(new ArrayTaskList(), new File("tasks.json"));
                     } catch (IOException e) {
-                        logger.error("IOException ",e);
+                        logger.error("IOException ", e);
                     }
                     continue startPoint;
                 case 7:

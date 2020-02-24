@@ -15,7 +15,6 @@ public class Task implements Cloneable, Serializable {
     private boolean repeated;
 
 
-
     public Task(String title, LocalDateTime time) {
         this.title = title;
         if (time != null) {
@@ -28,7 +27,7 @@ public class Task implements Cloneable, Serializable {
 
     public Task(String title, LocalDateTime start, LocalDateTime end, int interval) {
         this.title = title;
-        if (start == null|| end == null || interval < 0) {
+        if (start == null || end == null || interval < 0) {
             throw new IllegalArgumentException("Time should be > 0");
         }
         this.start = start;
@@ -135,7 +134,7 @@ public class Task implements Cloneable, Serializable {
     }
 
     @Override
-    public Task clone()  {
+    public Task clone() {
         try {
             return (Task) super.clone();
         } catch (CloneNotSupportedException e) {
@@ -181,10 +180,9 @@ public class Task implements Cloneable, Serializable {
                 return null;
             } else {
                 for (LocalDateTime i = getStartTime(); ; i = i.plusSeconds(getRepeatInterval())) {
-                    if ( i.isAfter(current) && (i.isBefore(getEndTime()) || i.isEqual(getEndTime()))) {
+                    if (i.isAfter(current) && (i.isBefore(getEndTime()) || i.isEqual(getEndTime()))) {
                         return i;
-                    }
-                    else if(i.isAfter(getEndTime())) {
+                    } else if (i.isAfter(getEndTime())) {
                         return null;
                     }
                 }
