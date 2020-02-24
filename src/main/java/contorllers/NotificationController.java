@@ -2,33 +2,24 @@ package contorllers;
 
 import models.AbstractTaskList;
 import models.ArrayTaskList;
-import models.Task;
 import models.Tasks;
 import org.apache.log4j.Logger;
-import util.ReadInputUtil;
 import views.NotificationView;
 import views.NotificationViewTemplate;
 
-import java.io.File;
 import java.time.LocalDateTime;
-import java.util.Set;
-import java.util.SortedMap;
 
 public class NotificationController implements Runnable {
     private final static Logger logger = Logger.getLogger(CalendarController.class);
-
-
     private Thread thread;
-
     private AbstractTaskList taskList;
-
     private NotificationViewTemplate notificationView;
 
     public NotificationController(AbstractTaskList abstractTaskList) {
-            taskList = abstractTaskList;
+        taskList = abstractTaskList;
         notificationView = new NotificationView();
 
-        Thread thread = new Thread(this, "notificationController");
+        thread = new Thread(this, "notificationController");
         thread.setDaemon(true);
         thread.start();
     }

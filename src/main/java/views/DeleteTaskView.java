@@ -4,7 +4,7 @@ import models.AbstractTaskList;
 import models.Task;
 import util.ReadInputUtil;
 
-public class DeleteTaskView implements DeleteTaskViewTemplate{
+public class DeleteTaskView implements DeleteTaskViewTemplate {
 
 
     public DeleteTaskView() {

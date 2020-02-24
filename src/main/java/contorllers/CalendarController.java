@@ -24,14 +24,13 @@ public class CalendarController implements CalendarControllerTemplate {
 
     private CalendarViewTemplate calendarView;
 
-    public CalendarController() {
+    public CalendarController(AbstractTaskList abstractTaskList) {
         calendarView = new CalendarView();
         fileTasks = new File("tasks.json");
-        initTaskList();
         if (taskList.size() > 0) {
             initDateStart();
             initDateEnd();
-            initTaskList();
+            taskList = abstractTaskList;
             logger.info("init taskList, size = " + taskList.size());
             calendarTasks = getCalendar();
             logger.info("init calendar, size = " + calendarTasks.size());
@@ -60,14 +59,14 @@ public class CalendarController implements CalendarControllerTemplate {
             case 2:
                 System.out.println("Saving..");
                 String fileName = calendarView.readFileNameForSave();
-                File file = new File(fileName+".txt");
+                File file = new File(fileName + ".txt");
                 logger.info("create file - " + fileName + ".txt");
                 boolean flag = saveCalendarToFile(file);
                 if (flag) {
                     System.out.println("File " + fileName + " saved!");
                     logger.info("file saved");
                     break;
-                } else{
+                } else {
                     System.out.println("File " + fileName + " not saved!");
                     logger.info("error saving");
                     System.out.println("return to menu..");
@@ -84,11 +83,6 @@ public class CalendarController implements CalendarControllerTemplate {
     @Override
     public void initDateEnd() {
         endTime = calendarView.readDateEnd(startTime);
-    }
-
-    @Override
-    public void initTaskList() {
-        taskList = ReadInputUtil.getTaskListFromFile(fileTasks);
     }
 
     @Override

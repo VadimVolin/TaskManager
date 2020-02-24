@@ -10,7 +10,6 @@ import views.MenuViewTemplate;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Scanner;
 
 
 public class MainController implements MainTemplate {
@@ -25,7 +24,6 @@ public class MainController implements MainTemplate {
     private CalendarControllerTemplate calendarController;
     private NotificationController controller;
 
-    private static Scanner scanner;
     AbstractTaskList abstractTaskList;
 
     public MainController() {
@@ -49,28 +47,28 @@ public class MainController implements MainTemplate {
                 case 1:
                     logger.info("User choose add item view");
                     System.out.println("Load add item view");
-                    addTaskController = new AddTaskController();
+                    addTaskController = new AddTaskController(abstractTaskList);
 
                     continue startPoint;
                 case 2:
                     logger.info("User choose update item");
                     System.out.println("Load update item view");
-                    updateTaskController = new UpdateTaskController();
+                    updateTaskController = new UpdateTaskController(abstractTaskList);
                     continue startPoint;
 
                 case 3:
                     logger.info("User choose delete item");
                     System.out.println("Load delete item view");
-                    deleteTaskController = new DeleteTaskController();
+                    deleteTaskController = new DeleteTaskController(abstractTaskList);
                     continue startPoint;
                 case 4:
                     logger.info("User choose print task list");
                     System.out.println("Load task list");
-                    showListController = new ShowListController();
+                    showListController = new ShowListController(abstractTaskList);
                     continue startPoint;
                 case 5:
                     logger.info("user choose calendar list");
-                    calendarController = new CalendarController();
+                    calendarController = new CalendarController(abstractTaskList);
                     continue startPoint;
                 case 6:
                     logger.info("User choose clean list");
@@ -93,7 +91,7 @@ public class MainController implements MainTemplate {
     }
 
     public int goToCurrentView() {
-        int chosenItem = 0;
+        int chosenItem;
         chosenItem = ReadInputUtil.readIntFromInput(1, 7);
         return chosenItem;
     }

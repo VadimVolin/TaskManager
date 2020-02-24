@@ -1,6 +1,5 @@
 package views;
 
-import contorllers.CalendarController;
 import models.Task;
 import util.ReadInputUtil;
 
@@ -50,10 +49,9 @@ public class CalendarView implements CalendarViewTemplate {
 
     @Override
     public int getChooseVariant() {
-        int chosingItem = ReadInputUtil.readIntFromInput(0,2);
+        int chosingItem = ReadInputUtil.readIntFromInput(0, 2);
         return chosingItem;
     }
-
 
 
     @Override
@@ -69,7 +67,7 @@ public class CalendarView implements CalendarViewTemplate {
     public LocalDateTime readDateEnd(LocalDateTime timeStart) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime timeEnd;
-        while(true) {
+        while (true) {
             System.out.print("\nWrite end time in format 'yyyy-MM-dd HH:mm:ss' for example 2016-11-09 11:44:44\n>:");
             String taskTime = ReadInputUtil.readDateString();
             timeEnd = LocalDateTime.parse(taskTime, formatter);

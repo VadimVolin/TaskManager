@@ -10,9 +10,11 @@ import java.util.SortedMap;
 public interface CalendarControllerTemplate {
 
     void initDateStart();
+
     void initDateEnd();
-    void initTaskList();
+
     SortedMap<LocalDateTime, Set<Task>> getCalendar();
+
     boolean saveCalendarToFile(File file);
 
 }

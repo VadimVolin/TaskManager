@@ -1,8 +1,6 @@
 package contorllers;
 
 import models.AbstractTaskList;
-import models.ArrayTaskList;
-import models.Task;
 import org.apache.log4j.Logger;
 import util.ReadInputUtil;
 import views.AddTaskView;
@@ -11,7 +9,7 @@ import views.UpdateTaskViewTemplate;
 
 import java.io.File;
 
-public class UpdateTaskController implements UpdateTaskTemplate{
+public class UpdateTaskController implements UpdateTaskTemplate {
 
     final static Logger logger = Logger.getLogger(AddTaskView.class);
 
@@ -19,10 +17,10 @@ public class UpdateTaskController implements UpdateTaskTemplate{
     AbstractTaskList taskList;
     File fileTasks;
 
-    public UpdateTaskController () {
+    public UpdateTaskController(AbstractTaskList abstractTaskList) {
         updateTaskView = new UpdateTaskView();
         fileTasks = new File("tasks.json");
-        taskList = ReadInputUtil.getTaskListFromFile(fileTasks);
+        taskList = abstractTaskList;
         if (taskList.size() > 0) {
             updateTaskView.printList(taskList);
             updateTaskView.printUpdateInfo();
@@ -38,6 +36,6 @@ public class UpdateTaskController implements UpdateTaskTemplate{
         int index = updateTaskView.readChoosingTask(1, taskList.size()) - 1;
         updateTaskView.updateTaskData(taskList.getTask(index));
         ReadInputUtil.saveListToFile(taskList, fileTasks);
-            logger.info("Task update :" + index + " | " + taskList.getTask(index));
+        logger.info("Task update :" + index + " | " + taskList.getTask(index));
     }
 }

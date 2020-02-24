@@ -1,32 +1,29 @@
 package contorllers;
 
 import models.AbstractTaskList;
-import models.ArrayTaskList;
 import models.Task;
 import org.apache.log4j.Logger;
 import util.ReadInputUtil;
-import views.AddTaskView;
 import views.DeleteTaskView;
 import views.DeleteTaskViewTemplate;
-import views.UpdateTaskView;
 
 import java.io.File;
 
-public class DeleteTaskController implements DeleteTaskTemplate{
+public class DeleteTaskController implements DeleteTaskTemplate {
 
     private final static Logger logger = Logger.getLogger(DeleteTaskController.class);
 
     private DeleteTaskViewTemplate deleteTaskView;
 
-    private AbstractTaskList taskList = null;
+    private AbstractTaskList taskList;
 
-    private File fileTasks = null;
+    private File fileTasks;
 
-    public DeleteTaskController () {
+    public DeleteTaskController(AbstractTaskList abstractTaskList) {
 
         fileTasks = new File("tasks.json");
 
-        taskList = ReadInputUtil.getTaskListFromFile(fileTasks);
+        taskList = abstractTaskList;
 
         deleteTaskView = new DeleteTaskView();
         deleteTaskView.printDeleteList(taskList);

@@ -1,16 +1,12 @@
 package views;
 
-import contorllers.AddTaskTemplate;
 import models.Task;
-import org.apache.log4j.Logger;
 import util.ReadInputUtil;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class AddTaskView implements AddTaskViewTemplate{
-
-    final static Logger logger = Logger.getLogger(AddTaskView.class);
+public class AddTaskView implements AddTaskViewTemplate {
 
     private String title;
 
@@ -40,6 +36,7 @@ public class AddTaskView implements AddTaskViewTemplate{
             default:
 
         }
+        task.setActive(true);
         return task;
 
     }
@@ -49,14 +46,14 @@ public class AddTaskView implements AddTaskViewTemplate{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         System.out.print("Write task title:\n>:");
-        String title = ReadInputUtil.readStringFromInput();
+        title = ReadInputUtil.readStringFromInput();
 
         System.out.print("\nWrite start time in format yyyy-MM-dd HH:mm for example 2016-11-09 11:44\n>:");
         String timeStart = ReadInputUtil.readDateString();
 
         start = LocalDateTime.parse(timeStart, formatter);
 
-        while(true) {
+        while (true) {
             System.out.print("\nWrite end time in format yyyy-MM-dd HH:mm for example 2016-11-09 11:44\n>:");
             String timeEnd = ReadInputUtil.readDateString();
             end = LocalDateTime.parse(timeEnd, formatter);
@@ -79,7 +76,7 @@ public class AddTaskView implements AddTaskViewTemplate{
     public Task readNoRepeatTaskData() {
         Task task = null;
         System.out.print("Write task title:\n>:");
-        String title = ReadInputUtil.readStringFromInput();
+        title = ReadInputUtil.readStringFromInput();
 
         System.out.print("\nWrite time in format 'yyyy-MM-dd HH:mm' for example 2016-11-09 11:44\n>:");
         String taskTime = ReadInputUtil.readDateString();

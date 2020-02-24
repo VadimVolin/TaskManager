@@ -2,7 +2,6 @@ package contorllers;
 
 import models.AbstractTaskList;
 import models.Task;
-import org.apache.log4j.Logger;
 import util.ReadInputUtil;
 import views.AddTaskView;
 import views.AddTaskViewTemplate;
@@ -15,12 +14,12 @@ public class AddTaskController implements AddTaskTemplate {
     AbstractTaskList taskList;
     File fileTasks;
 
-    public AddTaskController() {
+    public AddTaskController(AbstractTaskList abstractTaskList) {
         addTaskView = new AddTaskView();
 
         fileTasks = new File("tasks.json");
 
-        taskList = ReadInputUtil.getTaskListFromFile(fileTasks);
+        taskList = abstractTaskList;
         addTaskToList();
         ReadInputUtil.saveListToFile(taskList, fileTasks);
     }
