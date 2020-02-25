@@ -20,7 +20,7 @@ public class MainController implements MainTemplate {
     private AddTaskTemplate addTaskController;
     private UpdateTaskTemplate updateTaskController;
     private DeleteTaskTemplate deleteTaskController;
-    private ShowListTemplate showListController;
+    private ShowListController showListController;
     private CalendarControllerTemplate calendarController;
     private NotificationController controller;
 

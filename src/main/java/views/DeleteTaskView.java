@@ -14,15 +14,11 @@ public class DeleteTaskView implements DeleteTaskViewTemplate {
     }
 
     public void printStartInfo() {
-        System.out.println("\t Update task:");
+        System.out.println("\t Delete task:");
     }
 
-    public void printDeleteList(AbstractTaskList abstractTaskList) {
-        int i = 0;
-        for (Task task : abstractTaskList) {
-            i++;
-            System.out.println(i + ". " + task);
-        }
+    public void printDeleteList(String taskList) {
+        System.out.println(taskList);
     }
 
     public int readChoosingTask(int from, int to) {

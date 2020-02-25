@@ -11,7 +11,7 @@ public interface UpdateTaskViewTemplate {
 
     void printUpdateInfo();
 
-    void printList(AbstractTaskList abstractTaskList);
+    void printList(String list);
 
     int readChoosingTask(int from, int to);
 

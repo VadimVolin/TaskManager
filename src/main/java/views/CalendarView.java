@@ -1,12 +1,9 @@
 package views;
 
-import models.Task;
 import util.ReadInputUtil;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Set;
-import java.util.SortedMap;
 
 public class CalendarView implements CalendarViewTemplate {
 
@@ -37,14 +34,9 @@ public class CalendarView implements CalendarViewTemplate {
     }
 
     @Override
-    public void showCalendar(SortedMap<LocalDateTime, Set<Task>> calendarMap) {
+    public void showCalendar(String calendarMap) {
         System.out.println("-------------------------------------------------------------------------");
-        for (Set<Task> value : calendarMap.values()) {
-            for (Task task : value) {
-                System.out.println(task);
-            }
-            System.out.println("-------------------------------------------------------------------------");
-        }
+        System.out.println(calendarMap);
     }
 
     @Override
@@ -56,19 +48,19 @@ public class CalendarView implements CalendarViewTemplate {
 
     @Override
     public LocalDateTime readDateStart() {
-        System.out.print("\nWrite start time in format 'yyyy-MM-dd HH:mm:ss' for example 2016-11-09 11:44:44\n>:");
+        System.out.print("\nWrite start time in format 'yyyy-MM-dd HH:mm' for example 2016-11-09 11:44\n>:");
         String taskTime = ReadInputUtil.readDateString();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime time = LocalDateTime.parse(taskTime, formatter);
         return time;
     }
 
     @Override
     public LocalDateTime readDateEnd(LocalDateTime timeStart) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime timeEnd;
         while (true) {
-            System.out.print("\nWrite end time in format 'yyyy-MM-dd HH:mm:ss' for example 2016-11-09 11:44:44\n>:");
+            System.out.print("\nWrite end time in format 'yyyy-MM-dd HH:mm:ss' for example 2016-11-09 11:44\n>:");
             String taskTime = ReadInputUtil.readDateString();
             timeEnd = LocalDateTime.parse(taskTime, formatter);
             if (timeEnd.isAfter(timeStart)) {

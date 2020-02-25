@@ -16,7 +16,6 @@ import java.util.SortedMap;
 public class CalendarController implements CalendarControllerTemplate {
     private final static Logger logger = Logger.getLogger(CalendarController.class);
 
-    private final File fileTasks;
     private AbstractTaskList taskList;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
@@ -26,15 +25,23 @@ public class CalendarController implements CalendarControllerTemplate {
 
     public CalendarController(AbstractTaskList abstractTaskList) {
         calendarView = new CalendarView();
-        fileTasks = new File("tasks.json");
+        taskList = abstractTaskList;
         if (taskList.size() > 0) {
             initDateStart();
             initDateEnd();
-            taskList = abstractTaskList;
             logger.info("init taskList, size = " + taskList.size());
             calendarTasks = getCalendar();
             logger.info("init calendar, size = " + calendarTasks.size());
-            calendarView.showCalendar(calendarTasks);
+
+            StringBuffer calendarString = new StringBuffer();
+            for (Set<Task> value : calendarTasks.values()) {
+                for (Task task : value) {
+                    calendarString.append(task + "\n");
+                }
+                calendarString.append("-------------------------------------------------------------------------\n");
+            }
+
+            calendarView.showCalendar(calendarString.toString());
             calendarView.printVariantInfo();
             int choosingVariant = calendarView.getChooseVariant();
             logger.info("user choose:" + choosingVariant);
@@ -50,6 +57,7 @@ public class CalendarController implements CalendarControllerTemplate {
             case 0:
                 System.out.println("Exit!");
                 logger.info("Exit");
+                ReadInputUtil.getScanner().close();
                 System.exit(0);
                 break;
             case 1:

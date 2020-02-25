@@ -1,6 +1,5 @@
 package views;
 
-import models.Task;
 import util.ReadInputUtil;
 
 import java.time.LocalDateTime;
@@ -20,12 +19,12 @@ public class AddTaskView implements AddTaskViewTemplate {
         System.out.println("\t\tAdd task");
     }
 
-    public Task printTaskTypeView() {
+    public String printTaskTypeView() {
         System.out.println("Choose type of task:");
         System.out.println("1. No repeat task");
         System.out.println("2. Repeat task");
         int item = ReadInputUtil.readIntFromInput(1, 2);
-        Task task = null;
+        String task = null;
         switch (item) {
             case 1:
                 task = readNoRepeatTaskData();
@@ -36,28 +35,28 @@ public class AddTaskView implements AddTaskViewTemplate {
             default:
 
         }
-        task.setActive(true);
         return task;
 
     }
 
-    public Task readRepeatTaskData() {
-        Task task = null;
+    public String readRepeatTaskData() {
+        StringBuffer taskString = new StringBuffer();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         System.out.print("Write task title:\n>:");
         title = ReadInputUtil.readStringFromInput();
 
-        System.out.print("\nWrite start time in format yyyy-MM-dd HH:mm for example 2016-11-09 11:44\n>:");
+        System.out.print("\nW?rite start time in format yyyy-MM-dd HH:mm for example 2016-11-09 11:44\n>:");
         String timeStart = ReadInputUtil.readDateString();
 
         start = LocalDateTime.parse(timeStart, formatter);
-
+        String timeEnd = "";
         while (true) {
             System.out.print("\nWrite end time in format yyyy-MM-dd HH:mm for example 2016-11-09 11:44\n>:");
-            String timeEnd = ReadInputUtil.readDateString();
+            timeEnd = ReadInputUtil.readDateString();
             end = LocalDateTime.parse(timeEnd, formatter);
             if (end.isAfter(start)) {
+                timeEnd.replace('T', ' ');
                 break;
             }
         }
@@ -67,27 +66,23 @@ public class AddTaskView implements AddTaskViewTemplate {
         interval = intervalInMinutes * 60;
 
         if (!title.isEmpty() && interval >= 0) {
-            task = new Task(title, start, end, interval);
+            taskString.append(title).append("&").append(timeStart).append("&").append(timeEnd).append("&").append(interval);
         }
 
-        return task;
+        return taskString.toString();
     }
 
-    public Task readNoRepeatTaskData() {
-        Task task = null;
+    public String readNoRepeatTaskData() {
+        StringBuffer taskString = new StringBuffer();
         System.out.print("Write task title:\n>:");
         title = ReadInputUtil.readStringFromInput();
 
         System.out.print("\nWrite time in format 'yyyy-MM-dd HH:mm' for example 2016-11-09 11:44\n>:");
         String taskTime = ReadInputUtil.readDateString();
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        time = LocalDateTime.parse(taskTime, formatter);
-
         if (!title.isEmpty()) {
-            task = new Task(title, time);
+            taskString.append(title).append("&").append(taskTime);
         }
 
-        return task;
+        return taskString.toString();
     }
 }

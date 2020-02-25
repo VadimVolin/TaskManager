@@ -28,7 +28,7 @@
       }
     },
     "interval": 59940,
-    "active": false,
+    "active": true,
     "repeated": true
   },
   {
@@ -328,40 +328,8 @@
       }
     },
     "interval": 0,
-    "active": false,
+    "active": true,
     "repeated": false
-  },
-  {
-    "title": "авапвап",
-    "start": {
-      "date": {
-        "year": 1712,
-        "month": 12,
-        "day": 12
-      },
-      "time": {
-        "hour": 12,
-        "minute": 12,
-        "second": 12,
-        "nano": 0
-      }
-    },
-    "end": {
-      "date": {
-        "year": 1912,
-        "month": 11,
-        "day": 11
-      },
-      "time": {
-        "hour": 12,
-        "minute": 11,
-        "second": 1,
-        "nano": 0
-      }
-    },
-    "interval": 59940,
-    "active": false,
-    "repeated": true
   },
   {
     "title": "fgdfkgoifdugfiog",
@@ -409,51 +377,6 @@
     "repeated": false
   },
   {
-    "title": "aaa",
-    "time": {
-      "date": {
-        "year": 2020,
-        "month": 12,
-        "day": 12
-      },
-      "time": {
-        "hour": 12,
-        "minute": 12,
-        "second": 0,
-        "nano": 0
-      }
-    },
-    "start": {
-      "date": {
-        "year": 1212,
-        "month": 12,
-        "day": 12
-      },
-      "time": {
-        "hour": 12,
-        "minute": 12,
-        "second": 0,
-        "nano": 0
-      }
-    },
-    "end": {
-      "date": {
-        "year": 1214,
-        "month": 12,
-        "day": 12
-      },
-      "time": {
-        "hour": 14,
-        "minute": 14,
-        "second": 0,
-        "nano": 0
-      }
-    },
-    "interval": 60,
-    "active": true,
-    "repeated": true
-  },
-  {
     "title": "NONONO",
     "time": {
       "date": {
@@ -490,5 +413,56 @@
     "interval": 0,
     "active": true,
     "repeated": false
+  },
+  {
+    "title": "new task for u",
+    "time": {
+      "date": {
+        "year": 2020,
+        "month": 12,
+        "day": 12
+      },
+      "time": {
+        "hour": 2,
+        "minute": 2,
+        "second": 0,
+        "nano": 0
+      }
+    },
+    "interval": 0,
+    "active": true,
+    "repeated": false
+  },
+  {
+    "title": "new t",
+    "start": {
+      "date": {
+        "year": 2020,
+        "month": 12,
+        "day": 12
+      },
+      "time": {
+        "hour": 12,
+        "minute": 12,
+        "second": 0,
+        "nano": 0
+      }
+    },
+    "end": {
+      "date": {
+        "year": 2020,
+        "month": 12,
+        "day": 12
+      },
+      "time": {
+        "hour": 13,
+        "minute": 13,
+        "second": 0,
+        "nano": 0
+      }
+    },
+    "interval": 7380,
+    "active": true,
+    "repeated": true
   }
 ]

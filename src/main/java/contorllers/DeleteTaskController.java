@@ -25,8 +25,13 @@ public class DeleteTaskController implements DeleteTaskTemplate {
 
         taskList = abstractTaskList;
 
+        StringBuffer listString = new StringBuffer();
+        for (int i = 0; i < taskList.size(); i++) {
+            listString.append("" + (i + 1) + ". " + taskList.getTask(i) + "\n");
+        }
+
         deleteTaskView = new DeleteTaskView();
-        deleteTaskView.printDeleteList(taskList);
+        deleteTaskView.printDeleteList(listString.toString());
         if (taskList.size() > 0) {
             int index = deleteTaskView.readChoosingTask(1, taskList.size()) - 1;
             delete(index);

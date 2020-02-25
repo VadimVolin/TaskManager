@@ -21,8 +21,15 @@ public class UpdateTaskController implements UpdateTaskTemplate {
         updateTaskView = new UpdateTaskView();
         fileTasks = new File("tasks.json");
         taskList = abstractTaskList;
+
+        StringBuffer listString = new StringBuffer();
+        for (int i = 0; i < taskList.size(); i++) {
+            listString.append("" + (i + 1) + ". " + taskList.getTask(i) + "\n");
+        }
+
+
         if (taskList.size() > 0) {
-            updateTaskView.printList(taskList);
+            updateTaskView.printList(listString.toString());
             updateTaskView.printUpdateInfo();
             updateTask();
         } else {

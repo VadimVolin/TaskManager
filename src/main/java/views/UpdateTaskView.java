@@ -17,12 +17,8 @@ public class UpdateTaskView implements UpdateTaskViewTemplate {
         System.out.println("\t Update task:");
     }
 
-    public void printList(AbstractTaskList abstractTaskList) {
-        int i = 0;
-        for (Task task : abstractTaskList) {
-            i++;
-            System.out.println(i + " " + task);
-        }
+    public void printList(String taskList) {
+        System.out.println(taskList);
     }
 
     public void printUpdateInfo() {

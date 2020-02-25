@@ -4,5 +4,4 @@ public interface AddTaskTemplate {
 
     void addTaskToList();
 
-
 }
