@@ -1,6 +1,6 @@
 package views;
 
-import util.ReadInputUtil;
+import models.ReadInputUtil;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

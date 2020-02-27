@@ -2,7 +2,7 @@ package contorllers;
 
 import models.*;
 import org.apache.log4j.Logger;
-import util.ReadInputUtil;
+import models.ReadInputUtil;
 import views.CalendarView;
 import views.CalendarViewTemplate;
 

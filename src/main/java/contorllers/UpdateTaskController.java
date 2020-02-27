@@ -2,7 +2,7 @@ package contorllers;
 
 import models.AbstractTaskList;
 import org.apache.log4j.Logger;
-import util.ReadInputUtil;
+import models.ReadInputUtil;
 import views.AddTaskView;
 import views.UpdateTaskView;
 import views.UpdateTaskViewTemplate;
@@ -17,9 +17,9 @@ public class UpdateTaskController implements UpdateTaskTemplate {
     AbstractTaskList taskList;
     File fileTasks;
 
-    public UpdateTaskController(AbstractTaskList abstractTaskList) {
+    public UpdateTaskController(AbstractTaskList abstractTaskList, File file) {
         updateTaskView = new UpdateTaskView();
-        fileTasks = new File("tasks.json");
+        fileTasks = file;
         taskList = abstractTaskList;
 
         StringBuffer listString = new StringBuffer();

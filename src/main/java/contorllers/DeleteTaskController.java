@@ -3,7 +3,7 @@ package contorllers;
 import models.AbstractTaskList;
 import models.Task;
 import org.apache.log4j.Logger;
-import util.ReadInputUtil;
+import models.ReadInputUtil;
 import views.DeleteTaskView;
 import views.DeleteTaskViewTemplate;
 
@@ -19,9 +19,9 @@ public class DeleteTaskController implements DeleteTaskTemplate {
 
     private File fileTasks;
 
-    public DeleteTaskController(AbstractTaskList abstractTaskList) {
+    public DeleteTaskController(AbstractTaskList abstractTaskList, File file) {
 
-        fileTasks = new File("tasks.json");
+        fileTasks = file;
 
         taskList = abstractTaskList;
 

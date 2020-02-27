@@ -1,8 +1,6 @@
 package views;
 
-import models.AbstractTaskList;
-import models.Task;
-import util.ReadInputUtil;
+import models.ReadInputUtil;
 
 public class DeleteTaskView implements DeleteTaskViewTemplate {
 

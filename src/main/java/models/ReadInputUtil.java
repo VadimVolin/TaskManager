@@ -1,13 +1,9 @@
-package util;
+package models;
 
-import models.AbstractTaskList;
-import models.ArrayTaskList;
-import models.TaskIO;
 import org.apache.log4j.Logger;
 import org.json.simple.parser.ParseException;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 
 public class ReadInputUtil {
@@ -18,6 +14,70 @@ public class ReadInputUtil {
     }
 
     private static Scanner scanner = new Scanner(System.in);
+
+    public static String readPathInfoFromCache() {
+        File file = new File("cache.dat");
+        String path = "";
+        FileInputStream fileInputStream = null;
+        DataInputStream dataInputStream = null;
+        if (file.exists()) {
+            try {
+                fileInputStream = new FileInputStream(file);
+                dataInputStream = new DataInputStream(fileInputStream);
+                path = dataInputStream.readUTF();
+            } catch (FileNotFoundException e) {
+                logger.error(e);
+            } catch (IOException e) {
+                logger.error(e);
+            } finally {
+                if (fileInputStream != null) {
+                    try {
+                        fileInputStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (dataInputStream != null) {
+                    try {
+                        dataInputStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        return path;
+    }
+
+    public static void savePathInfoToCache(String path) {
+        File file = new File("cache.dat");
+        FileOutputStream fileOutputStream = null;
+        DataOutputStream dataOutputStream = null;
+        try {
+            fileOutputStream = new FileOutputStream(file);
+            dataOutputStream = new DataOutputStream(fileOutputStream);
+            dataOutputStream.writeUTF(path);
+        } catch (FileNotFoundException e) {
+            logger.error(e);
+        } catch (IOException e) {
+            logger.error(e);
+        } finally {
+            if (fileOutputStream != null) {
+                try {
+                    fileOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (dataOutputStream != null) {
+                try {
+                    dataOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     public static void saveListToFile(AbstractTaskList taskList, File fileTasks) {
         if (!fileTasks.exists()) {

@@ -2,7 +2,7 @@ package contorllers;
 
 import models.AbstractTaskList;
 import models.Task;
-import util.ReadInputUtil;
+import models.ReadInputUtil;
 import views.AddTaskView;
 import views.AddTaskViewTemplate;
 
@@ -17,10 +17,10 @@ public class AddTaskController implements AddTaskTemplate {
     AbstractTaskList taskList;
     File fileTasks;
 
-    public AddTaskController(AbstractTaskList abstractTaskList) {
+    public AddTaskController(AbstractTaskList abstractTaskList, File file) {
         addTaskView = new AddTaskView();
 
-        fileTasks = new File("tasks.json");
+        fileTasks = file;
 
         taskList = abstractTaskList;
         addTaskToList();
