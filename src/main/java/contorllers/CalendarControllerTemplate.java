@@ -1,5 +1,6 @@
 package contorllers;
 
+import models.AbstractTaskList;
 import models.Task;
 
 import java.io.File;
@@ -16,5 +17,11 @@ public interface CalendarControllerTemplate {
     SortedMap<LocalDateTime, Set<Task>> getCalendar();
 
     boolean saveCalendarToFile(File file);
+
+    AbstractTaskList getTaskList();
+
+    void setTaskList(AbstractTaskList taskList);
+
+    void calendar();
 
 }

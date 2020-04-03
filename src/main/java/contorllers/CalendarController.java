@@ -2,7 +2,6 @@ package contorllers;
 
 import models.*;
 import org.apache.log4j.Logger;
-import models.ReadInputUtil;
 import views.CalendarView;
 import views.CalendarViewTemplate;
 
@@ -14,6 +13,9 @@ import java.util.Set;
 import java.util.SortedMap;
 
 public class CalendarController implements CalendarControllerTemplate {
+    public static final int EXIT = 0;
+    public static final int RETURN = 1;
+    public static final int SAVE_TO_FILE = 2;
     private final static Logger logger = Logger.getLogger(CalendarController.class);
 
     private AbstractTaskList taskList;
@@ -26,7 +28,12 @@ public class CalendarController implements CalendarControllerTemplate {
     public CalendarController(AbstractTaskList abstractTaskList) {
         calendarView = new CalendarView();
         taskList = abstractTaskList;
+
+    }
+
+    public void calendar() {
         if (taskList.size() > 0) {
+            calendarView.printStartInfo();
             initDateStart();
             initDateEnd();
             logger.info("init taskList, size = " + taskList.size());
@@ -52,19 +59,26 @@ public class CalendarController implements CalendarControllerTemplate {
         }
     }
 
+    public AbstractTaskList getTaskList() {
+        return taskList;
+    }
+
+    public void setTaskList(AbstractTaskList taskList) {
+        this.taskList = taskList;
+    }
+
     private void actionFinish(int item) {
         switch (item) {
-            case 0:
+            case EXIT:
                 System.out.println("Exit!");
                 logger.info("Exit");
-                ReadInputUtil.getScanner().close();
                 System.exit(0);
                 break;
-            case 1:
+            case RETURN:
                 System.out.println("Return to menu");
                 logger.info("Return to menu");
                 break;
-            case 2:
+            case SAVE_TO_FILE:
                 System.out.println("Saving..");
                 String fileName = calendarView.readFileNameForSave();
                 File file = new File(fileName + ".txt");
@@ -72,11 +86,11 @@ public class CalendarController implements CalendarControllerTemplate {
                 boolean flag = saveCalendarToFile(file);
                 if (flag) {
                     System.out.println("File " + fileName + " saved!");
-                    logger.info("file saved");
+                    logger.info("File " + fileName + " saved.");
                     break;
                 } else {
                     System.out.println("File " + fileName + " not saved!");
-                    logger.info("error saving");
+                    logger.info("File " + fileName + " not saved.");
                     System.out.println("return to menu..");
                     break;
                 }
@@ -114,7 +128,7 @@ public class CalendarController implements CalendarControllerTemplate {
             }
         }
         if (myList == null || myList.size() == 0) {
-            logger.error("List size 0, return");
+            logger.info("List size 0");
             System.out.println("List empty.. return");
             return false;
         }

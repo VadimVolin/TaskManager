@@ -11,10 +11,10 @@
     <property name="path.separator" value=":"/>
     <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
     <property name="sun.os.patch.level" value="unknown"/>
-    <property name="user.country" value="RU"/>
+    <property name="human.country" value="RU"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="/home/vadim/Документы/NTC/TaskManager"/>
+    <property name="human.dir" value="/home/vadim/Документы/NTC/TaskManager"/>
     <property name="java.vm.compressedOopsMode" value="32-bit"/>
     <property name="java.runtime.version" value="11.0.5+10-b520.30"/>
     <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
@@ -35,18 +35,18 @@
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="os.version" value="5.3.0-40-generic"/>
     <property name="idea.version2019.3.2" value="true"/>
-    <property name="user.home" value="/home/vadim"/>
-    <property name="user.timezone" value="Europe/Kaliningrad"/>
+    <property name="human.home" value="/home/vadim"/>
+    <property name="human.timezone" value="Europe/Kaliningrad"/>
     <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
     <property name="file.encoding" value="UTF-8"/>
     <property name="java.specification.version" value="11"/>
-    <property name="user.name" value="vadim"/>
+    <property name="human.name" value="vadim"/>
     <property name="java.class.path" value="/home/vadim/.local/share/JetBrains/Toolbox/apps/IDEA-U/ch-0/193.6015.39/plugins/maven/lib/maven3/boot/plexus-classworlds-2.6.0.jar"/>
     <property name="java.vm.specification.version" value="11"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="sun.java.command" value="org.codehaus.classworlds.Launcher -Didea.version2019.3.2 test"/>
     <property name="java.home" value="/home/vadim/.local/share/JetBrains/Toolbox/apps/IDEA-U/ch-0/193.6015.39/jbr"/>
-    <property name="user.language" value="ru"/>
+    <property name="human.language" value="ru"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
     <property name="java.vm.info" value="mixed mode"/>

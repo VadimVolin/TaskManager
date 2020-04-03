@@ -1,7 +1,5 @@
 package views;
 
-import models.ReadInputUtil;
-
 public class DeleteTaskView implements DeleteTaskViewTemplate {
 
 

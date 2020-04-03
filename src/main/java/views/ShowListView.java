@@ -1,16 +1,13 @@
 package views;
 
-import models.AbstractTaskList;
-import models.Task;
-
-public class ShowListView implements ShowListViewTemplate{
+public class ShowListView implements PrintListViewTemplate {
 
     public ShowListView() {
 
     }
 
-    public void printTaskList(String taskList) {
-        System.out.println(taskList);
+    public void printTaskLsit(String abstractTaskList) {
+        System.out.println(abstractTaskList);
     }
 
 

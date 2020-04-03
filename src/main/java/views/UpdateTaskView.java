@@ -1,19 +1,15 @@
 package views;
 
-import models.Task;
-import models.ReadInputUtil;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.StringTokenizer;
 
 public class UpdateTaskView implements UpdateTaskViewTemplate {
 
-    public UpdateTaskView() {
-        printStartInfo();
-    }
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public void printStartInfo() {
-        System.out.println("\t Update task:");
+    public UpdateTaskView() {
+
     }
 
     public void printList(String taskList) {
@@ -21,9 +17,9 @@ public class UpdateTaskView implements UpdateTaskViewTemplate {
     }
 
     public void printUpdateInfo() {
+        System.out.println("\t Update task:");
         System.out.println("Choose task:");
         System.out.println("Input task number:");
-        System.out.println("\t Update task:");
     }
 
     public void printUpdateInfoForRepeatTask() {
@@ -47,80 +43,129 @@ public class UpdateTaskView implements UpdateTaskViewTemplate {
         return index;
     }
 
-    public void updateTaskData(Task task) {
-        if (task.isRepeated()) {
+    public String[] updateTaskData(String task) {
+        StringTokenizer tokenizer = new StringTokenizer(task, "&");
+        String[] taskStrings = new String[tokenizer.countTokens()];
+        int i = 0;
+        while (tokenizer.hasMoreTokens()) {
+            taskStrings[i] = tokenizer.nextToken();
+            i++;
+        }
+        if (taskStrings[0].equals("true")) {
             printUpdateInfoForRepeatTask();
-            readNewRepeatTaskData(task);
+            System.out.println("Choose item for update:");
+            return readNewRepeatTaskData(taskStrings);
         } else {
             printUpdateInfoForNoRepeatTask();
-            readNewNoRepeatTaskData(task);
+            System.out.println("Choose item for update:");
+            return readNewNoRepeatTaskData(taskStrings);
         }
     }
 
-    public void readNewRepeatTaskData(Task task) {
+    public String[] readNewRepeatTaskData(String[] task) {
         int index = ReadInputUtil.readIntFromInput(1, 6);
         switch (index) {
             case 1:
                 String newTitle = readNewTaskTitle();
-                task.setTitle(newTitle);
+                task[1] = newTitle;
                 break;
             case 2:
                 LocalDateTime dateTime = readNewDate();
-                task.setTime(dateTime, task.getEndTime(), task.getRepeatInterval());
+                task[2] = dateTime.toString();
                 break;
             case 3:
-                LocalDateTime newEndTime = readNewEndTime(task.getStartTime());
-                task.setTime(task.getStartTime(), newEndTime, task.getRepeatInterval());
+                LocalDateTime newEndTime = readNewEndTime(LocalDateTime.parse(task[3]));
+                task[3] = newEndTime.toString();
                 break;
             case 4:
-                int interval = readNewIntervalInMinutes() * 60;
-                task.setTime(task.getStartTime(), task.getEndTime(), interval);
+                int interval = readNewIntervalInMinutes();
+                task[4] = String.valueOf(interval);
                 break;
             case 5:
                 boolean isActive = changeActivity();
-                task.setActive(isActive);
+                task[5] = String.valueOf(isActive);
                 break;
             case 6:
-                changeToNoRepeat(task);
+                String str = changeToNoRepeat(task);
+                StringTokenizer tokenizer = new StringTokenizer(str, "&");
+                String[] taskStrings = new String[tokenizer.countTokens()];
+                int i = 0;
+                task = new String[4];
+                while (tokenizer.hasMoreTokens()) {
+                    task[i] = tokenizer.nextToken();
+                    i++;
+                }
                 break;
             default:
                 break;
         }
+        return task;
     }
 
-    public void readNewNoRepeatTaskData(Task task) {
+    public String[] readNewNoRepeatTaskData(String[] task) {
         int index = ReadInputUtil.readIntFromInput(1, 4);
         switch (index) {
             case 1:
                 String newTitle = readNewTaskTitle();
-                task.setTitle(newTitle);
+                task[1] = newTitle;
                 break;
             case 2:
                 LocalDateTime dateTime = readNewDate();
-                task.setTime(dateTime);
+                task[2] = dateTime.toString();
                 break;
             case 3:
                 boolean isActive = changeActivity();
-                task.setActive(isActive);
+                task[3] = String.valueOf(isActive);
                 break;
             case 4:
-                changeToRepeat(task);
+                String str = changeToRepeat(task);
+                StringTokenizer tokenizer = new StringTokenizer(str, "&");
+                String[] taskStrings = new String[tokenizer.countTokens()];
+                int i = 0;
+                task = new String[6];
+                while (tokenizer.hasMoreTokens()) {
+                    task[i] = tokenizer.nextToken();
+                    i++;
+                }
                 break;
             default:
                 break;
         }
+        return task;
     }
 
-    public void changeToRepeat(Task task) {
+    public String changeToRepeat(String[] taskForRepeat) {
         LocalDateTime dateTime = readNewDate();
         LocalDateTime newEndTime = readNewEndTime(dateTime);
-        int interval = readNewIntervalInMinutes() * 60;
-        task.setTime(dateTime, newEndTime, interval);
+        int interval = readNewIntervalInMinutes();
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(true)
+                .append("&")
+                .append(taskForRepeat[1])
+                .append("&")
+                .append(dateTime.toString())
+                .append("&")
+                .append(newEndTime.toString())
+                .append("&")
+                .append(interval)
+                .append("&")
+                .append(taskForRepeat[3])
+        ;
+        return buffer.toString();
     }
 
-    public void changeToNoRepeat(Task task) {
+    public String changeToNoRepeat(String[] taskForNoRepeat) {
         LocalDateTime time = readNewDate();
-        task.setTime(time);
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(false)
+                .append("&")
+                .append(taskForNoRepeat[1])
+                .append("&")
+                .append(time.toString())
+                .append("&")
+                .append(taskForNoRepeat[5])
+        ;
+        return buffer.toString();
     }
 
     public boolean changeActivity() {
@@ -145,13 +190,11 @@ public class UpdateTaskView implements UpdateTaskViewTemplate {
     public LocalDateTime readNewDate() {
         System.out.print("\nWrite time in format 'yyyy-MM-dd HH:mm' for example 2016-11-09 11:44\n>:");
         String taskTime = ReadInputUtil.readDateString();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime time = LocalDateTime.parse(taskTime, formatter);
         return time;
     }
 
     public LocalDateTime readNewEndTime(LocalDateTime timeStart) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime timeEnd;
         while (true) {
             System.out.print("\nWrite end time in format 'yyyy-MM-dd HH:mm' for example 2016-11-09 11:44\n>:");
@@ -166,6 +209,7 @@ public class UpdateTaskView implements UpdateTaskViewTemplate {
     }
 
     public int readNewIntervalInMinutes() {
+        System.out.println("Write new interval in minutes:");
         return ReadInputUtil.readIntFromInput(0, 1000);
     }
 

@@ -1,25 +1,22 @@
 package views;
 
-import models.ReadInputUtil;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class AddTaskView implements AddTaskViewTemplate {
 
     private String title;
-
-    private LocalDateTime time;
-
     private LocalDateTime start;
     private LocalDateTime end;
     private int interval;
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public AddTaskView() {
-        System.out.println("\t\tAdd task");
+
     }
 
     public String printTaskTypeView() {
+        System.out.println("\t\tAdd task");
         System.out.println("Choose type of task:");
         System.out.println("1. No repeat task");
         System.out.println("2. Repeat task");
@@ -41,7 +38,6 @@ public class AddTaskView implements AddTaskViewTemplate {
 
     public String readRepeatTaskData() {
         StringBuffer taskString = new StringBuffer();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         System.out.print("Write task title:\n>:");
         title = ReadInputUtil.readStringFromInput();
@@ -63,7 +59,7 @@ public class AddTaskView implements AddTaskViewTemplate {
 
         System.out.print("\nWrite interval time in minutes\n>:");
         int intervalInMinutes = ReadInputUtil.readIntFromInput(0, 1000);
-        interval = intervalInMinutes * 60;
+        interval = intervalInMinutes;
 
         if (!title.isEmpty() && interval >= 0) {
             taskString.append(title).append("&").append(timeStart).append("&").append(timeEnd).append("&").append(interval);

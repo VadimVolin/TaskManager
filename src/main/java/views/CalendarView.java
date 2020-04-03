@@ -1,20 +1,18 @@
 package views;
 
-import models.ReadInputUtil;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class CalendarView implements CalendarViewTemplate {
 
-    public CalendarView() {
-        System.out.println("\tCalendar");
-        printStartInfo();
-    }
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    public CalendarView() {
+    }
 
     @Override
     public void printStartInfo() {
+        System.out.println("\tCalendar");
         System.out.println("Write date interval for searching:");
     }
 
@@ -50,14 +48,12 @@ public class CalendarView implements CalendarViewTemplate {
     public LocalDateTime readDateStart() {
         System.out.print("\nWrite start time in format 'yyyy-MM-dd HH:mm' for example 2016-11-09 11:44\n>:");
         String taskTime = ReadInputUtil.readDateString();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime time = LocalDateTime.parse(taskTime, formatter);
         return time;
     }
 
     @Override
     public LocalDateTime readDateEnd(LocalDateTime timeStart) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime timeEnd;
         while (true) {
             System.out.print("\nWrite end time in format 'yyyy-MM-dd HH:mm:ss' for example 2016-11-09 11:44\n>:");

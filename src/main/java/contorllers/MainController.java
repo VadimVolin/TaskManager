@@ -2,11 +2,12 @@ package contorllers;
 
 import models.AbstractTaskList;
 import models.ArrayTaskList;
+import models.FileIO;
 import models.TaskIO;
 import org.apache.log4j.Logger;
-import models.ReadInputUtil;
 import views.MenuView;
 import views.MenuViewTemplate;
+import views.ReadInputUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,8 +15,8 @@ import java.io.IOException;
 
 public class MainController implements MainTemplate {
 
-    final static Logger logger = Logger.getLogger(MainController.class);
-
+    private final static Logger logger = Logger.getLogger(MainController.class);
+    private AbstractTaskList abstractTaskList;
     private MenuViewTemplate menuView;
     private AddTaskTemplate addTaskController;
     private UpdateTaskTemplate updateTaskController;
@@ -23,45 +24,55 @@ public class MainController implements MainTemplate {
     private ShowListController showListController;
     private CalendarControllerTemplate calendarController;
     private NotificationController controller;
-
-    AbstractTaskList abstractTaskList;
     private File file;
+    private final static int ADD = 1;
+    private final static int UPDATE = 2;
+    private final static int DELETE = 3;
+    private final static int LIST = 4;
+    private final static int CALENDAR = 5;
+    private final static int CLEAR = 6;
+    private final static int EXIT = 7;
 
     public MainController() {
         menuView = new MenuView();
         abstractTaskList = initListFile();
+        addTaskController = new AddTaskController(abstractTaskList, file);
+        updateTaskController = new UpdateTaskController(abstractTaskList, file);
+        deleteTaskController = new DeleteTaskController(abstractTaskList, file);
+        showListController = new ShowListController(abstractTaskList);
+        calendarController = new CalendarController(abstractTaskList);
         controller = new NotificationController(abstractTaskList);
         chooseMenuItem();
     }
 
     public AbstractTaskList initListFile() {
-        int chooseItem = ReadInputUtil.readIntFromInput(1, 3);
+        int chooseItem = menuView.chooseStartAction();
         AbstractTaskList tasks = null;
         try {
             switch (chooseItem) {
-                case 1:
+                case ADD:
                     file = new File("tasks.json");
                     file.delete();
                     file.createNewFile();
                     tasks = new ArrayTaskList();
                     break;
-                case 2:
+                case UPDATE:
                     String path = menuView.readFilePath();
                     file = new File(path);
-                    tasks = ReadInputUtil.getTaskListFromFile(file);
+                    tasks = FileIO.getTaskListFromFile(file);
                     tasks = tasks == null ? new ArrayTaskList() : tasks;
                     break;
-                case 3:
-                    String pathFromCache = ReadInputUtil.readPathInfoFromCache();
+                case DELETE:
+                    String pathFromCache = FileIO.readPathInfoFromCache();
                     if (pathFromCache.equals("")) {
                         file = new File("newTasks.json");
-                        logger.error("file not found in path: " + pathFromCache);
-                        logger.error("create new file");
+                        logger.info("file not found in path: " + pathFromCache);
+                        logger.info("create new file");
                     } else {
                         file = new File(pathFromCache);
                         logger.info("path: " + file.getPath());
                     }
-                    tasks = ReadInputUtil.getTaskListFromFile(file);
+                    tasks = FileIO.getTaskListFromFile(file);
                     break;
             }
         } catch (IOException e) {
@@ -77,33 +88,37 @@ public class MainController implements MainTemplate {
             menuView.printInfo();
             int chosenMenuItem = menuView.goToCurrentView();
 
-            abstractTaskList = ReadInputUtil.getTaskListFromFile(file);
+            abstractTaskList = FileIO.getTaskListFromFile(file);
             controller.setTaskList(abstractTaskList);
 
             switch (chosenMenuItem) {
-                case 1:
+                case ADD:
                     logger.info("User choose add item view");
-                    addTaskController = new AddTaskController(abstractTaskList, file);
-
+                    addTaskController.setTaskList(abstractTaskList);
+                    addTaskController.addTaskToList();
                     continue startPoint;
-                case 2:
+                case UPDATE:
                     logger.info("User choose update item");
-                    updateTaskController = new UpdateTaskController(abstractTaskList, file);
+                    updateTaskController.setTaskList(abstractTaskList);
+                    updateTaskController.update();
                     continue startPoint;
 
-                case 3:
+                case DELETE:
                     logger.info("User choose delete item");
-                    deleteTaskController = new DeleteTaskController(abstractTaskList, file);
+                    deleteTaskController.setTaskList(abstractTaskList);
+                    deleteTaskController.delete();
                     continue startPoint;
-                case 4:
+                case LIST:
                     logger.info("User choose print task list");
-                    showListController = new ShowListController(abstractTaskList);
+                    showListController.setArrayTaskList(abstractTaskList);
+                    showListController.show();
                     continue startPoint;
-                case 5:
+                case CALENDAR:
                     logger.info("user choose calendar list");
-                    calendarController = new CalendarController(abstractTaskList);
+                    calendarController.setTaskList(abstractTaskList);
+                    calendarController.calendar();
                     continue startPoint;
-                case 6:
+                case CLEAR:
                     logger.info("User choose clean list");
                     try {
                         TaskIO.writeText(new ArrayTaskList(), file);
@@ -111,12 +126,12 @@ public class MainController implements MainTemplate {
                         logger.error("IOException ", e);
                     }
                     continue startPoint;
-                case 7:
+                case EXIT:
                     logger.info("User choose exit");
-                    System.out.println("User choose exit");
-                    ReadInputUtil.saveListToFile(abstractTaskList, file);
-                    ReadInputUtil.savePathInfoToCache(file.getPath());
-                    ReadInputUtil.getScanner().close();
+                    System.out.println("Exit");
+                    FileIO.saveListToFile(abstractTaskList, file);
+                    FileIO.savePathInfoToCache(file.getPath());
+                    ReadInputUtil.closeResource();
                     System.exit(0);
                     break;
                 default:

@@ -151,7 +151,7 @@ public class Task implements Cloneable, Serializable {
                     .append(getStartTime().toString().replace('T', ' '))
                     .append(" | end time: ")
                     .append(getEndTime().toString().replace('T', ' '))
-                    .append(" | interval time(in seconds): ")
+                    .append(" | interval time(in minutes): ")
                     .append(getRepeatInterval())
                     .append(" | active: " + (isActive() ? "Yes" : "No"))
                     .append(" |");
@@ -179,7 +179,7 @@ public class Task implements Cloneable, Serializable {
             if (getEndTime().isBefore(current)) {
                 return null;
             } else {
-                for (LocalDateTime i = getStartTime(); ; i = i.plusSeconds(getRepeatInterval())) {
+                for (LocalDateTime i = getStartTime(); ; i = i.plusMinutes(getRepeatInterval())) {
                     if (i.isAfter(current) && (i.isBefore(getEndTime()) || i.isEqual(getEndTime()))) {
                         return i;
                     } else if (i.isAfter(getEndTime())) {

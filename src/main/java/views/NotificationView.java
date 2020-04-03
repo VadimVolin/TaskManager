@@ -1,21 +1,10 @@
 package views;
 
-import models.AbstractTaskList;
-import models.Task;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.SortedMap;
-
-public class NotificationView implements NotificationViewTemplate {
+public class NotificationView implements PrintListViewTemplate {
     @Override
-    public void printTaskLsit(AbstractTaskList abstractTaskList) {
+    public void printTaskLsit(String abstractTaskList) {
         System.out.println("------------------------Notification-----------------------");
-        for (Task task : abstractTaskList) {
-            System.out.println(task);
-        }
+        System.out.println(abstractTaskList);
         System.out.println("-----------------------------------------------------------");
     }
 

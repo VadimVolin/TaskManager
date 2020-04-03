@@ -2,6 +2,7 @@ package models;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.apache.log4j.Logger;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
@@ -10,6 +11,7 @@ import java.util.Iterator;
 
 public class TaskIO {
 
+    private final static Logger logger = Logger.getLogger(TaskIO.class);
 
 
     public static void write(AbstractTaskList tasks, OutputStream out) throws IOException {
@@ -31,21 +33,21 @@ public class TaskIO {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Error in i/o: ", e);
         } finally {
             try {
                 if (outputStream != null) {
                     outputStream.close();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("Error in i/o: ", e);
             }
             try {
                 if (out != null) {
                     out.close();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("Error in i/o: ", e);
             }
         }
     }
@@ -87,21 +89,21 @@ public class TaskIO {
                 tasks.add(task);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Error in i/o: ", e);
         } finally {
             try {
                 if (dataInputStream != null) {
                     dataInputStream.close();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("Error in i/o: ", e);
             }
             try {
                 if (in != null) {
                     in.close();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("Error in i/o: ", e);
             }
         }
     }
@@ -134,26 +136,6 @@ public class TaskIO {
         out.close();
 
     }
-
-//    public static void writeJSON(AbstractTaskList tasks, Writer out) throws IOException {
-        //        JSONObject jsonObject = null;
-//        JSONArray jsonArray = new JSONArray();
-//        for (Task task : tasks) {
-//            jsonObject = new JSONObject();
-//            jsonObject.put("Title", task.getTitle());
-//            jsonObject.put("Active", task.isActive());
-//            jsonObject.put("Repeated", task.isRepeated());
-//            if (task.isRepeated()) {
-//                jsonObject.put("Time start", task.getStartTime());
-//                jsonObject.put("Time end", task.getEndTime());
-//                jsonObject.put("Interval", task.getRepeatInterval());
-//            } else {
-//                jsonObject.put("Time", task.getTime());
-//            }
-//        jsonArray.add(tasks);
-//        }
-//        out.write(jsonArray.toJSONString());
-//    }
 
     public static void read(AbstractTaskList tasks, Reader in) throws IOException, ParseException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();

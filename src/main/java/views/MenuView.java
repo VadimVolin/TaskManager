@@ -1,8 +1,6 @@
 package views;
 
-import models.ReadInputUtil;
-
-public class MenuView implements MenuViewTemplate{
+public class MenuView implements MenuViewTemplate {
 
 
     public MenuView() {
@@ -14,7 +12,15 @@ public class MenuView implements MenuViewTemplate{
 
     }
 
+    public int chooseStartAction() {
+        System.out.println("Choose menu item:");
+        int chosenItem;
+        chosenItem = ReadInputUtil.readIntFromInput(1, 3);
+        return chosenItem;
+    }
+
     public int goToCurrentView() {
+        System.out.println("Choose menu item:");
         int chosenItem;
         chosenItem = ReadInputUtil.readIntFromInput(1, 7);
         return chosenItem;

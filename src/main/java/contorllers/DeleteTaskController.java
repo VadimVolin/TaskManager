@@ -1,9 +1,9 @@
 package contorllers;
 
 import models.AbstractTaskList;
+import models.FileIO;
 import models.Task;
 import org.apache.log4j.Logger;
-import models.ReadInputUtil;
 import views.DeleteTaskView;
 import views.DeleteTaskViewTemplate;
 
@@ -22,9 +22,12 @@ public class DeleteTaskController implements DeleteTaskTemplate {
     public DeleteTaskController(AbstractTaskList abstractTaskList, File file) {
 
         fileTasks = file;
-
         taskList = abstractTaskList;
 
+    }
+
+    @Override
+    public void delete() {
         StringBuffer listString = new StringBuffer();
         for (int i = 0; i < taskList.size(); i++) {
             listString.append("" + (i + 1) + ". " + taskList.getTask(i) + "\n");
@@ -39,7 +42,15 @@ public class DeleteTaskController implements DeleteTaskTemplate {
             System.out.println("List is empty");
             logger.info("List is empty");
         }
-        ReadInputUtil.saveListToFile(taskList, fileTasks);
+        FileIO.saveListToFile(taskList, fileTasks);
+    }
+
+    public AbstractTaskList getTaskList() {
+        return taskList;
+    }
+
+    public void setTaskList(AbstractTaskList taskList) {
+        this.taskList = taskList;
     }
 
     @Override
